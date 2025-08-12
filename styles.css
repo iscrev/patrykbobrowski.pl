@@ -1106,10 +1106,15 @@ section {
 
 .infographic-icon {
     margin-bottom: var(--space-xs);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
 }
 
 .infographic-icon i {
-    font-size: 1.5rem;
+    font-size: 2.3rem;
     background: var(--liquid-gold);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
