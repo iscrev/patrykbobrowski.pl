@@ -334,6 +334,26 @@ body {
   100% { box-shadow: 0 0 180px 60px #00BFFF99, 0 0 120px 40px #00f2fe88; filter: brightness(1.18) saturate(1.22); }
 }
 
+/* Mobile video responsiveness */
+@media (max-width: 768px) {
+  .video-container-hero { border-radius: 20px !important; }
+  #hero-video { border-radius: 20px !important; aspect-ratio: 16/9; height: auto; max-height: 60vh; }
+  video { max-width: 100%; height: auto; }
+}
+
+/* Better inline video UX on mobile */
+video[playsinline] { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+
+/* Ensure portfolio videos scale inside cards */
+.video-wrapper video, .video-card video, .portfolio video {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain;
+}
+
+/* Prevent layout flash while loading metadata */
+video { background-color: #000; }
+
 /* Usuwam style dla kategorii/filtrów portfolio */
 .portfolio-filters, .filter-btn { display: none !important; }
 
@@ -792,12 +812,13 @@ section {
     justify-content: center;
     align-items: center;
     margin-right: var(--space-xl);
+    align-self: start; /* raise avatar vertically on desktop */
 }
 
 .profile-hologram {
     position: relative;
-    width: 400px;
-    height: 400px;
+    width: 560px;
+    height: 560px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -867,8 +888,8 @@ section {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 300px;
-    height: 300px;
+    width: 400px;
+    height: 400px;
     border-radius: 50%;
     overflow: hidden;
     box-shadow: 
@@ -1232,16 +1253,8 @@ section {
         order: -1;
     }
     
-    .profile-hologram {
-        width: 300px;
-        height: 300px;
-        margin: 0 auto;
-    }
-    
-    .profile-image-futuristic {
-        width: 220px;
-        height: 220px;
-    }
+    .profile-hologram { width: 300px; height: 300px; margin: 0 auto; }
+    .profile-image-futuristic { width: 220px; height: 220px; }
     
     .greeting-massive {
         font-size: clamp(3rem, 10vw, 5rem);

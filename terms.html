@@ -5,6 +5,72 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Warunki korzystania · Patryk Bobrowski</title>
   <link rel="stylesheet" href="styles.css?v=pages-2025-08-08" />
+  <!-- Google Consent Mode v2: default deny -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      analytics_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      wait_for_update: 500
+    });
+  </script>
+  <!-- Google Analytics (gtag.js) - gated by cookie consent -->
+  <script>
+    (function(){
+      function loadGA(){
+        if (window.__gaLoaded) return;
+        window.__gaLoaded = true;
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ window.dataLayer.push(arguments); }
+        window.gtag = gtag;
+        try {
+          var saved = JSON.parse(localStorage.getItem('cookie-consent-v1') || '{}');
+          var analyticsOn = !!saved.analytics;
+          var marketingOn = !!saved.marketing;
+          gtag('consent', 'update', {
+            analytics_storage: analyticsOn ? 'granted' : 'denied',
+            ad_storage: marketingOn ? 'granted' : 'denied',
+            ad_user_data: marketingOn ? 'granted' : 'denied',
+            ad_personalization: marketingOn ? 'granted' : 'denied'
+          });
+        } catch (_e) {}
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-89YQWBDKB5';
+        document.head.appendChild(s);
+        gtag('js', new Date());
+        gtag('config', 'G-89YQWBDKB5', { anonymize_ip: true });
+      }
+      window.loadGA = loadGA;
+      try {
+        var consent = JSON.parse(localStorage.getItem('cookie-consent-v1') || '{}');
+        gtag('consent', 'update', {
+          analytics_storage: consent.analytics ? 'granted' : 'denied',
+          ad_storage: consent.marketing ? 'granted' : 'denied',
+          ad_user_data: consent.marketing ? 'granted' : 'denied',
+          ad_personalization: consent.marketing ? 'granted' : 'denied'
+        });
+        if (consent.analytics) loadGA();
+      } catch (e) {}
+      window.addEventListener('storage', function(event){
+        if (event.key === 'cookie-consent-v1') {
+          try {
+            var state = JSON.parse(event.newValue || '{}');
+            gtag('consent', 'update', {
+              analytics_storage: state.analytics ? 'granted' : 'denied',
+              ad_storage: state.marketing ? 'granted' : 'denied',
+              ad_user_data: state.marketing ? 'granted' : 'denied',
+              ad_personalization: state.marketing ? 'granted' : 'denied'
+            });
+            if (state.analytics) loadGA();
+          } catch (_e) {}
+        }
+      });
+    })();
+  </script>
 </head>
 <body class="bg-vibrant-glass">
   <div class="hub-gradient-layer" aria-hidden="true"></div>

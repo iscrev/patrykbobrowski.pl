@@ -5,6 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ustawienia cookies · Patryk Bobrowski</title>
   <link rel="stylesheet" href="styles.css?v=pages-2025-08-08" />
+  <!-- Google Analytics (gtag.js) - gated by cookie consent -->
+  <script>
+    (function(){
+      function loadGA(){
+        if (window.__gaLoaded) return;
+        window.__gaLoaded = true;
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ window.dataLayer.push(arguments); }
+        window.gtag = gtag;
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-89YQWBDKB5';
+        document.head.appendChild(s);
+        gtag('js', new Date());
+        gtag('config', 'G-89YQWBDKB5', { anonymize_ip: true });
+      }
+      window.loadGA = loadGA;
+      try {
+        var consent = JSON.parse(localStorage.getItem('cookie-consent-v1') || '{}');
+        if (consent.analytics) loadGA();
+      } catch (e) {}
+      window.addEventListener('storage', function(event){
+        if (event.key === 'cookie-consent-v1') {
+          try {
+            var state = JSON.parse(event.newValue || '{}');
+            if (state.analytics) loadGA();
+          } catch (_e) {}
+        }
+      });
+    })();
+  </script>
 </head>
 <body class="bg-vibrant-glass">
   <div class="hub-gradient-layer" aria-hidden="true"></div>
@@ -71,7 +102,11 @@
       const m = document.getElementById('ck-marketing');
       a.checked = !!state.analytics;
       m.checked = !!state.marketing;
-      function save(s){ localStorage.setItem(key, JSON.stringify(s)); alert('Zapisano preferencje cookies'); }
+      function save(s){ 
+        localStorage.setItem(key, JSON.stringify(s)); 
+        try { if (s.analytics && typeof window.loadGA === 'function') window.loadGA(); } catch(e){}
+        alert('Zapisano preferencje cookies'); 
+      }
       document.getElementById('ck-save').onclick = ()=> save({analytics:a.checked, marketing:m.checked, decision:'custom'});
       document.getElementById('ck-accept-all').onclick = ()=> save({analytics:true, marketing:true, decision:'all'});
       document.getElementById('ck-reject-all').onclick = ()=> save({analytics:false, marketing:false, decision:'none'});

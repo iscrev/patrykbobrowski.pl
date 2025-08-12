@@ -17,17 +17,84 @@
     <!-- Comprehensive CSP tuned to current assets. NOTE: Inline scripts/Babel require 'unsafe-inline' and 'unsafe-eval'. -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; 
       base-uri 'self'; object-src 'none'; frame-ancestors 'self'; upgrade-insecure-requests; 
-      script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com https://unpkg.com https://cdn.tailwindcss.com; 
+      script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com https://unpkg.com https://cdn.tailwindcss.com https://www.googletagmanager.com https://www.google-analytics.com; 
       style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; 
       img-src 'self' data: blob: https://i.ytimg.com; 
       font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; 
-      connect-src 'self' https://formspree.io; 
+      connect-src 'self' https://formspree.io https://www.google-analytics.com https://region1.google-analytics.com https://www.googletagmanager.com; 
       media-src 'self' blob:; 
       frame-src 'self' https://www.youtube.com https://player.vimeo.com">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="Permissions-Policy" content="accelerometer=(), autoplay=(), camera=(), clipboard-read=(), clipboard-write=(), display-capture=(), encrypted-media=(), fullscreen=(), geolocation=(), gyroscope=(), hid=(), idle-detection=(), magnetometer=(), microphone=(), midi=(), payment=(), usb=(), vr=(), xr-spatial-tracking=()">
     <link rel="stylesheet" href="styles.css?v=vibrant-glass-neomorphic-2025-08-08-01">
+    <!-- Google Consent Mode v2: default deny -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ dataLayer.push(arguments); }
+        gtag('consent', 'default', {
+            ad_storage: 'denied',
+            analytics_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+            wait_for_update: 500
+        });
+    </script>
+    <!-- Google Analytics (gtag.js) - gated by cookie consent -->
+    <script>
+        (function(){
+            function loadGA(){
+                if (window.__gaLoaded) return;
+                window.__gaLoaded = true;
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ window.dataLayer.push(arguments); }
+                window.gtag = gtag;
+                // Apply consent based on saved preferences before loading GA
+                try {
+                    var saved = JSON.parse(localStorage.getItem('cookie-consent-v1') || '{}');
+                    var analyticsOn = !!saved.analytics;
+                    var marketingOn = !!saved.marketing;
+                    gtag('consent', 'update', {
+                        analytics_storage: analyticsOn ? 'granted' : 'denied',
+                        ad_storage: marketingOn ? 'granted' : 'denied',
+                        ad_user_data: marketingOn ? 'granted' : 'denied',
+                        ad_personalization: marketingOn ? 'granted' : 'denied'
+                    });
+                } catch (_e) {}
+                var s = document.createElement('script');
+                s.async = true;
+                s.src = 'https://www.googletagmanager.com/gtag/js?id=G-89YQWBDKB5';
+                document.head.appendChild(s);
+                gtag('js', new Date());
+                gtag('config', 'G-89YQWBDKB5', { anonymize_ip: true });
+            }
+            try {
+                var consent = JSON.parse(localStorage.getItem('cookie-consent-v1') || '{}');
+                // Always reflect current consent via Consent Mode
+                gtag('consent', 'update', {
+                    analytics_storage: consent.analytics ? 'granted' : 'denied',
+                    ad_storage: consent.marketing ? 'granted' : 'denied',
+                    ad_user_data: consent.marketing ? 'granted' : 'denied',
+                    ad_personalization: consent.marketing ? 'granted' : 'denied'
+                });
+                if (consent.analytics) loadGA();
+            } catch (e) {}
+            window.addEventListener('storage', function(event){
+                if (event.key === 'cookie-consent-v1') {
+                    try {
+                        var state = JSON.parse(event.newValue || '{}');
+                        gtag('consent', 'update', {
+                            analytics_storage: state.analytics ? 'granted' : 'denied',
+                            ad_storage: state.marketing ? 'granted' : 'denied',
+                            ad_user_data: state.marketing ? 'granted' : 'denied',
+                            ad_personalization: state.marketing ? 'granted' : 'denied'
+                        });
+                        if (state.analytics) loadGA();
+                    } catch (_e) {}
+                }
+            });
+        })();
+    </script>
     <!-- 🔥 FORCE ELECTRIC BLUE STYLES -->
     <style>
         /* Emergency Electric Blue Override */
@@ -1403,7 +1470,7 @@
                         <canvas id="hero-video-cosmos-bg"></canvas>
                     </div>
                     <div class="video-container-hero glow-innovative" id="hero-video-container" style="width: 100%; margin: 0; position: relative; border-radius: 40px; overflow: hidden; box-shadow: 0 0 120px 40px #00f2fe55, 0 20px 80px rgba(0,0,0,0.7); background: transparent; aspect-ratio: 16/9; max-width: 1200px; margin-left: auto; margin-right: 0;">
-                        <video id="hero-video" preload="metadata" style="width: 100%; height: 100%; max-height: 95vh; border-radius: 40px; box-shadow: 0 0 120px 30px #00f2fe55; background: transparent; object-fit: cover; aspect-ratio: 16/9;" tabindex="0">
+                        <video id="hero-video" preload="metadata" playsinline webkit-playsinline style="width: 100%; height: 100%; max-height: 95vh; border-radius: 40px; box-shadow: 0 0 120px 30px #00f2fe55; background: transparent; object-fit: cover; aspect-ratio: 16/9;" tabindex="0">
                             <source src="videos/wojna-w-wietnamie.mp4" type="video/mp4">
                             Twoja przeglądarka nie obsługuje odtwarzacza wideo.
                         </video>
@@ -1465,9 +1532,9 @@
                         </div>
                     </div>
                     <div class="about-text-revolutionary">
-                        <div class="about-description-pro" data-fulltext="Jestem młodym otwartym do działania montażystą i grafikiem komputerowym oraz osobą fascynującą się sztuczną inteligencją, ożywię twoją pracę i wzniosę ją na wyżyny, które owocnie staną się wiralową rolką na YouTube Shorts, Instagram Reels czy TikTok. Montuję angażujące i przyciągające uwagę widza treści w Adobe Premiere Pro i Adobe After Effects automatyzuję cuda skryptami i optymalizuję pod SEO, by Twój content podbijał sieć.">
+                        <div class="about-description-pro" data-fulltext="Jestem młodym, pełnym energii montażystą i grafikiem komputerowym, z pasją do sztucznej inteligencji, który ożywi Twoją pracę i wyniesie ją na zupełnie nowy poziom. Sprawię, że Twoje materiały staną się wiralowymi rolkami na YouTube Shorts, Instagram Reels czy TikTok, przyciągającymi uwagę i angażującymi widzów. Operuję Adobe Premiere Pro i Adobe After Effects, wykorzystując automatyzację skryptami oraz zaawansowane techniki optymalizacji pod SEO, by Twój content zdobywał szerokie zasięgi i trwałe zainteresowanie w sieci. Jeśli chcesz, aby Twój projekt był dynamiczny, profesjonalny i wyróżniał się na tle konkurencji, zapraszam do współpracy to razem stworzymy treści, które zachwycą i poruszą Twoją społeczność.">
                             <h1 class="greeting-massive apple-premium-header" data-text="Cześć!">Cześć!</h1>
-                            <span class="apple-clean-text">Jestem młodym otwartym do działania montażystą i grafikiem komputerowym oraz osobą fascynującą się sztuczną inteligencją, ożywię twoją pracę i wzniosę ją na wyżyny, które owocnie staną się wiralową rolką na YouTube Shorts, Instagram Reels czy TikTok. Montuję angażujące i przyciągające uwagę widza treści w Adobe Premiere Pro i Adobe After Effects automatyzuję cuda skryptami i optymalizuję pod SEO, by Twój content podbijał sieć.</span>
+                            <span class="apple-clean-text">Jestem młodym, pełnym energii montażystą i grafikiem komputerowym, z pasją do sztucznej inteligencji, który ożywi Twoją pracę i wyniesie ją na zupełnie nowy poziom. Sprawię, że Twoje materiały staną się wiralowymi rolkami na YouTube Shorts, Instagram Reels czy TikTok, przyciągającymi uwagę i angażującymi widzów. Operuję Adobe Premiere Pro i Adobe After Effects, wykorzystując automatyzację skryptami oraz zaawansowane techniki optymalizacji pod SEO, by Twój content zdobywał szerokie zasięgi i trwałe zainteresowanie w sieci. Jeśli chcesz, aby Twój projekt był dynamiczny, profesjonalny i wyróżniał się na tle konkurencji, zapraszam do współpracy to razem stworzymy treści, które zachwycą i poruszą Twoją społeczność.</span>
                         </div>
                         <div class="skills-infographics">
                             <div class="infographic-card glass-card">
@@ -1554,7 +1621,7 @@
                     <div class="form-group" style="margin-bottom:12px;">
                         <textarea name="message" placeholder="Wiadomość" rows="5" required></textarea>
                     </div>
-                    <div class="form-group form-consent">
+                    <div class="form-group form-consent" style="margin: 0;">
                       <label class="consent-control" for="privacy-consent">
                         <input type="checkbox" id="privacy-consent" required>
                         <span class="checkmark" aria-hidden="true"></span>
@@ -1564,8 +1631,8 @@
                         </span>
                       </label>
                     </div>
-                    <div id="contact-status" class="apple-clean-text" style="text-align:center; min-height:22px; margin: 2px 0 6px 0;"></div>
-                    <button type="submit" class="btn-primary liquid-btn electric-hover sticky-mobile" style="margin-top:12px;">
+                    <div id="contact-status" class="apple-clean-text" style="text-align:center; min-height:0; margin: 0;"></div>
+                    <button type="submit" class="btn-primary liquid-btn electric-hover sticky-mobile" style="margin-top:2px;">
                         <span>Wyślij wiadomość</span>
                         <div class="btn-liquid"></div>
                     </button>
@@ -2326,7 +2393,11 @@
 
         // World-Class Portfolio Component with Perfect Infinite Loop
         const WorldClassPortfolio = () => {
-            const [currentIndex, setCurrentIndex] = React.useState(portfolioData.length);
+            const startAt = React.useMemo(() => {
+                const idx = portfolioData.findIndex(v => v.src && v.src.indexOf('ELONMUSKNEWS.mp4') !== -1);
+                return idx >= 0 ? idx : 0;
+            }, []);
+            const [currentIndex, setCurrentIndex] = React.useState(portfolioData.length + startAt);
             const [isPlaying, setIsPlaying] = React.useState(false);
             const [volume, setVolume] = React.useState(0.5);
             const [isTransitioning, setIsTransitioning] = React.useState(false);
@@ -2394,6 +2465,18 @@
 
             const handlePrev = () => handleSlideChange(currentIndex - 1);
             const handleNext = () => handleSlideChange(currentIndex + 1);
+            const handleEnded = () => {
+                const next = currentIndex + 1;
+                handleSlideChange(next);
+                // Auto play next item after transition completes
+                setTimeout(() => {
+                    const active = videoRefs.current[next];
+                    if (active && typeof active.play === 'function') {
+                        active.play();
+                        setIsPlaying(true);
+                    }
+                }, 700);
+            };
             
             const handleDotClick = (index) => {
                 const targetIndex = index + portfolioData.length;
@@ -2434,9 +2517,10 @@
                         isActive: isActive,
                         isPlaying: isActive && isPlaying,
                         onPlayPause: handleVideoControl,
+                        onEnded: handleEnded,
                         onVolumeChange: handleVolumeChange,
                         volume: volume,
-                        videoRef: (el) => { if (el) videoRefs.current[index] = el; },
+                        videoRef: (el) => { if (el) { videoRefs.current[index] = el; el.setAttribute('playsinline',''); el.setAttribute('webkit-playsinline',''); el.setAttribute('preload','metadata'); } },
                         showControls: isActive && showControls,
                         setShowControls: setShowControls
                     }));
@@ -2488,7 +2572,7 @@
         };
 
         // Video Item Component with Fullscreen
-        const VideoItem = ({ video, index, isActive, isPlaying, onPlayPause, onVolumeChange, volume, videoRef, showControls, setShowControls }) => {
+        const VideoItem = ({ video, index, isActive, isPlaying, onPlayPause, onEnded, onVolumeChange, volume, videoRef, showControls, setShowControls }) => {
             const [localVolume, setLocalVolume] = React.useState(volume);
             const localVideoRef = React.useRef(null);
 
@@ -2581,7 +2665,9 @@
                     className: 'w-full h-full object-contain',
                     playsInline: true,
                     preload: 'metadata',
-                    onEnded: () => onPlayPause()
+                    onEnded: () => {
+                        if (typeof onEnded === 'function') onEnded();
+                    }
                 }),
                 
                 // Modern controls for active video only
