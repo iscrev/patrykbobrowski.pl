@@ -1,0 +1,46 @@
+name: Optimize Videos for GitHub Pages
+
+on:
+  push:
+    paths:
+      - 'videos/**'
+  workflow_dispatch:
+
+jobs:
+  optimize-videos:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Setup FFmpeg
+      uses: FedericoCarboni/setup-ffmpeg@v3
+      
+    - name: Optimize videos
+      run: |
+        mkdir -p optimized-videos
+        
+        for video in videos/*.mp4; do
+          if [ -f "$video" ]; then
+            filename=$(basename "$video")
+            echo "Optimizing $filename..."
+            
+            # Optimize video for web
+            ffmpeg -i "$video" \
+              -c:v libx264 \
+              -crf 23 \
+              -preset medium \
+              -c:a aac \
+              -b:a 128k \
+              -movflags +faststart \
+              -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" \
+              "optimized-videos/$filename"
+          fi
+        done
+        
+    - name: Upload optimized videos
+      uses: actions/upload-artifact@v3
+      with:
+        name: optimized-videos
+        path: optimized-videos/

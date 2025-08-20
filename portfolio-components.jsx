@@ -301,24 +301,31 @@ const VideoSlider = ({ videos, currentSlide, isPlaying, onSlideChange, onPlaySta
 const UltraModernPortfolio = () => {
     const portfolioData = [
         {
-            src: 'videos/AI%20TELEDYSK.mp4',
-            title: 'AI Teledysk',
-            description: 'Innowacyjny teledysk stworzony przy użyciu sztucznej inteligencji',
-            duration: '2:34',
+            src: 'videos/ELONMUSKNEWS.mp4',
+            title: 'Elon Musk News',
+            description: 'Aktualności technologiczne w formie wideo',
+            duration: '2:15',
             aspect: '9:16'
         },
         {
-            src: 'videos/AIBRAINROT.mp4',
-            title: 'AI Brain Rot',
-            description: 'Eksperymentalny projekt wideo z elementami AI',
-            duration: '1:45',
+            src: 'videos/Poraj.mp4',
+            title: 'Poraj',
+            description: 'Kreatywny projekt wideo w formacie 9:16',
+            duration: '2:30',
             aspect: '9:16'
         },
         {
-            src: 'videos/BRAINROTAI.mp4',
-            title: 'Brain Rot AI',
-            description: 'Kreatywny montaż z wykorzystaniem technologii AI',
-            duration: '3:12',
+            src: 'videos/wojna-w-wietnamie.mp4',
+            title: 'Wojna w Wietnamie',
+            description: 'Dokument historyczny',
+            duration: '8:20',
+            aspect: '16:9'
+        },
+        {
+            src: 'videos/toolfine.mp4',
+            title: 'Tool Fine',
+            description: 'Profesjonalny projekt wideo w formacie 9:16',
+            duration: '3:15',
             aspect: '9:16'
         },
         {
@@ -329,10 +336,10 @@ const UltraModernPortfolio = () => {
             aspect: '16:9'
         },
         {
-            src: 'videos/ELONMUSKNEWS.mp4',
-            title: 'Elon Musk News',
-            description: 'Aktualności technologiczne w formie wideo',
-            duration: '2:15',
+            src: 'videos/AI%20TELEDYSK.mp4',
+            title: 'AI Teledysk',
+            description: 'Innowacyjny teledysk stworzony przy użyciu sztucznej inteligencji',
+            duration: '2:34',
             aspect: '9:16'
         },
         {
@@ -383,13 +390,6 @@ const UltraModernPortfolio = () => {
             description: 'Mistrzostwo opowiadania historii',
             duration: '6:45',
             aspect: '9:16'
-        },
-        {
-            src: 'videos/wojna-w-wietnamie.mp4',
-            title: 'Wojna w Wietnamie',
-            description: 'Dokument historyczny',
-            duration: '8:20',
-            aspect: '16:9'
         },
         {
             src: 'videos/Wybierz.mp4',

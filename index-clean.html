@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Patryk Bobrowski - Twórca Wizji</title>
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="favi.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favi.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="favi.png">
+    <link rel="shortcut icon" href="favi.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#00BFFF">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <!-- Security meta directives -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; 
+      base-uri 'self'; object-src 'none'; frame-ancestors 'self'; upgrade-insecure-requests; 
+      script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com https://unpkg.com https://cdn.tailwindcss.com https://www.googletagmanager.com https://www.google-analytics.com; 
+      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; 
+      img-src 'self' data: blob: https://i.ytimg.com; 
+      font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; 
+      connect-src 'self' https://formspree.io https://www.google-analytics.com https://region1.google-analytics.com https://www.googletagmanager.com; 
+      media-src 'self' blob:; 
+      frame-src 'self' https://www.youtube.com https://player.vimeo.com">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Permissions-Policy" content="accelerometer=(), autoplay=(), camera=(), clipboard-read=(), clipboard-write=(), display-capture=(), encrypted-media=(), fullscreen=(), geolocation=(), gyroscope=(), hid=(), idle-detection=(), magnetometer=(), microphone=(), midi=(), payment=(), usb=(), vr=(), xr-spatial-tracking=()">
+    <link rel="stylesheet" href="styles.css?v=vibrant-glass-neomorphic-2025-08-08-01">
+    
+    <!-- OPTIMIZED PRELOAD - Only critical resources -->
+    <link rel="preload" href="videos/reklama.mp4" as="video" type="video/mp4" crossorigin>
+    <link rel="preload" href="videos/ELONMUSKNEWS.mp4" as="video" type="video/mp4" crossorigin>
+    
+    <!-- DNS prefetch for better performance -->
+    <link rel="dns-prefetch" href="//www.googletagmanager.com">
+    <link rel="dns-prefetch" href="//www.google-analytics.com">
+    
+    <!-- Service Worker Registration for GitHub Pages -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('✅ Service Worker registered:', registration);
+                    })
+                    .catch(error => {
+                        console.log('❌ Service Worker registration failed:', error);
+                    });
+            });
+        }
+    </script>
+    
+    <!-- Google Consent Mode v2: default deny -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ dataLayer.push(arguments); }
+        gtag('consent', 'default', {
+            ad_storage: 'denied',
+            analytics_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+            wait_for_update: 500
+        });
+    </script>
+    <!-- Google Analytics (gtag.js) - gated by cookie consent -->
+    <script>
+        (function(){
+            function loadGA(){
+                if (window.__gaLoaded) return;
+                window.__gaLoaded = true;
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ window.dataLayer.push(arguments); }
+                window.gtag = gtag;
+                // Apply consent based on saved preferences before loading GA
+                try {
+                    var saved = JSON.parse(localStorage.getItem('cookie-consent-v1') || '{}');
+                    var analyticsOn = !!saved.analytics;
+                    var marketingOn = !!saved.marketing;
+                    gtag('consent', 'update', {
+                        analytics_storage: analyticsOn ? 'granted' : 'denied',
+                        ad_storage: marketingOn ? 'granted' : 'denied',
+                        ad_user_data: marketingOn ? 'granted' : 'denied',
+                        ad_personalization: marketingOn ? 'granted' : 'denied'
+                    });
+                } catch (_e) {}
+                var s = document.createElement('script');
+                s.async = true;
+                s.src = 'https://www.googletagmanager.com/gtag/js?id=G-89YQWBDKB5';
+                document.head.appendChild(s);
+                gtag('js', new Date());
+                gtag('config', 'G-89YQWBDKB5', { anonymize_ip: true });
+            }
+            try {
+                var consent = JSON.parse(localStorage.getItem('cookie-consent-v1') || '{}');
+                // Always reflect current consent via Consent Mode
+                gtag('consent', 'update', {
+                    analytics_storage: consent.analytics ? 'granted' : 'denied',
+                    ad_storage: consent.marketing ? 'granted' : 'denied',
+                    ad_user_data: consent.marketing ? 'granted' : 'denied',
+                    ad_personalization: consent.marketing ? 'granted' : 'denied'
+                });
+                if (consent.analytics || consent.marketing) {
+                    loadGA();
+                }
+            } catch (_e) {}
+            // Load GA if consent was previously granted
+            if (localStorage.getItem('cookie-consent-v1')) {
+                loadGA();
+            }
+        })();
+    </script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- React and ReactDOM -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav-glass">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="#hero" class="nav-link apple-nav-link">Patryk Bobrowski</a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#hero" class="nav-link apple-nav-link">Start</a></li>
+                <li><a href="#about" class="nav-link apple-nav-link">O mnie</a></li>
+                <li><a href="#portfolio" class="nav-link apple-nav-link">Portfolio</a></li>
+                <li><a href="#contact" class="nav-link apple-nav-link">Kontakt</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Cookie Consent Modal -->
+    <div id="cookie-modal-overlay" class="cookie-modal-overlay" style="display: none;">
+        <div class="cookie-modal">
+            <h3>Ustawienia plików cookie</h3>
+            <p>Używamy plików cookie, aby poprawić Twoje doświadczenie na stronie.</p>
+            <div class="cookie-options">
+                <label>
+                    <input type="checkbox" id="cm-analytics" checked>
+                    Analityka (Google Analytics)
+                </label>
+                <label>
+                    <input type="checkbox" id="cm-marketing">
+                    Marketing i reklamy
+                </label>
+            </div>
+            <div class="cookie-buttons">
+                <button id="cm-accept-all" class="btn-primary">Akceptuj wszystkie</button>
+                <button id="cm-save" class="btn-secondary">Zapisz wybór</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="content-wrapper">
+        <!-- Hero Section -->
+        <section id="hero" class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="title-line liquid-text apple-premium-header">Patryk Bobrowski</span>
+                    <span class="title-line subtitle-animated apple-clean-text">Twórca Wizji</span>
+                </h1>
+                <div class="hero-video-container">
+                    <video id="hero-video" class="hero-video" autoplay muted loop playsinline>
+                        <source src="videos/reklama.mp4" type="video/mp4">
+                    </video>
+                    <div class="hero-video-controls">
+                        <button id="hero-play-button" class="hero-play-button video-play-button-stable">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <div class="hero-volume-control">
+                            <input type="range" id="hero-volume-slider" min="0" max="1" step="0.1" value="0.5">
+                        </div>
+                        <div class="hero-seek-container">
+                            <input type="range" id="hero-seek-slider" min="0" max="100" value="0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about-section">
+            <div class="container">
+                <div class="about-content">
+                    <div class="profile-section">
+                        <div class="profile-photo">
+                            <img src="sigmasior.jpg" alt="Patryk Bobrowski" class="profile-image-futuristic">
+                        </div>
+                        <div class="profile-info">
+                            <h2 class="about-title">O mnie</h2>
+                            <p class="about-text">
+                                Jestem młodym, pełnym energii montażystą i grafikiem komputerowym, z pasją do sztucznej inteligencji, który ożywi Twoją pracę i wyniesie ją na zupełnie nowy poziom. Sprawię, że Twoje materiały staną się wiralowymi rolkami na YouTube Shorts, Instagram Reels czy TikTok, przyciągającymi uwagę i angażującymi widzów. Operuję Adobe Premiere Pro i Adobe After Effects, wykorzystując automatyzację skryptami oraz zaawansowane techniki optymalizacji pod SEO, by Twój content zdobywał szerokie zasięgi i trwałe zainteresowanie w sieci. Jeśli chcesz, aby Twój projekt był dynamiczny, profesjonalny i wyróżniał się na tle konkurencji, zapraszam do współpracy to razem stworzymy treści, które zachwycą i poruszą Twoją społeczność.
+                            </p>
+                            <button class="btn-primary liquid-btn electric-hover sticky-mobile">
+                                <span>Rozpocznij współpracę</span>
+                                <div class="btn-liquid"></div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Section -->
+        <section class="portfolio-section" id="portfolio">
+            <div id="portfolio-root"></div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section">
+            <div class="container">
+                <h2 class="contact-big-title"><span class="ultimate-neon-header" data-text="KONTAKT">KONTAKT</span></h2>
+                <div class="contact-infographics">
+                    <div class="contact-card">
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="contact-label apple-clean-text">E-mail</div>
+                        <div class="contact-value apple-clean-text">supertrewi@gmail.com</div>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                        <div class="contact-label apple-clean-text">Telefon</div>
+                        <div class="contact-value apple-clean-text">+48 573 311 007</div>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon"><i class="fab fa-facebook"></i></div>
+                        <div class="contact-label apple-clean-text">Facebook</div>
+                        <div class="contact-value">
+                            <a href="https://www.facebook.com/profile.php?id=100007837713621" target="_blank" rel="noopener noreferrer" class="electric-hover">Patryk Bobrowski</a>
+                        </div>
+                    </div>
+                </div>
+                <form id="contact-form" class="contact-form" method="POST" accept-charset="UTF-8" data-endpoint="https://formspree.io/f/mwpqyqzn">
+                    <!-- Honeypot anty-spam (zostaw puste) -->
+                    <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none">
+
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Imię i nazwisko" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Twój e-mail" inputmode="email" required>
+                    </div>
+                    <div class="form-group" style="margin-bottom:12px;">
+                        <textarea name="message" placeholder="Wiadomość" rows="5" required></textarea>
+                    </div>
+                    <div class="form-group form-consent" style="margin: 0;">
+                      <label class="consent-control" for="privacy-consent">
+                        <input type="checkbox" id="privacy-consent" required>
+                        <span class="checkmark" aria-hidden="true"></span>
+                        <span class="consent-block">
+                          <span class="consent-text apple-clean-text">Akceptuję zasady prywatności</span>
+                          <a href="privacy.html" class="consent-link">Polityka prywatności</a>
+                        </span>
+                      </label>
+                    </div>
+                    <div id="contact-status" class="apple-clean-text" style="text-align:center; min-height:0; margin: 0;"></div>
+                    <button type="submit" class="btn-primary liquid-btn electric-hover sticky-mobile" style="margin-top:2px;">
+                        <span>Wyślij wiadomość</span>
+                        <div class="btn-liquid"></div>
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="terms.html" class="nav-link">Regulamin</a>
+                    <a href="privacy.html" class="nav-link">Polityka prywatności</a>
+                    <a href="cookies.html" class="nav-link">Polityka cookies</a>
+                    <a href="cookie-settings.html" class="nav-link">Ustawienia cookies</a>
+                </div>
+                <div class="footer-copyright">
+                    <p>&copy; 2024 Patryk Bobrowski. Wszystkie prawa zastrzeżone.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Working Portfolio Components -->
+    <script type="text/babel">
+        console.log('🚀 Loading working portfolio...');
+        
+        // Portfolio Data with correct order
+        const portfolioData = [
+            { src: 'videos/ELONMUSKNEWS.mp4', aspect: '9:16', id: 'elon-musk', title: 'Elon Musk News' },
+            { src: 'videos/Poraj.mp4', aspect: '9:16', id: 'poraj', title: 'Poraj' },
+            { src: 'videos/wojna-w-wietnamie.mp4', aspect: '16:9', id: 'wojna-wietnam', title: 'Wojna w Wietnamie' },
+            { src: 'videos/toolfine.mp4', aspect: '9:16', id: 'toolfine', title: 'Tool Fine' },
+            { src: 'videos/edit.mp4', aspect: '16:9', id: 'edit', title: 'Edit' },
+            { src: 'videos/Historyjka.mp4', aspect: '9:16', id: 'historyjka', title: 'Historyjka' },
+            { src: 'videos/StoryTelling.mp4', aspect: '9:16', id: 'storytelling', title: 'Storytelling' },
+            { src: 'videos/AI%20TELEDYSK.mp4', aspect: '9:16', id: 'ai-teledysk', title: 'AI Teledysk' },
+            { src: 'videos/BRAINROTAI.mp4', aspect: '9:16', id: 'brainrot-ai', title: 'BrainRot AI' }
+        ];
+
+        // Portfolio Header Component
+        const PortfolioHeader = () => {
+            return React.createElement('div', {
+                style: {
+                    textAlign: 'center',
+                    width: '100%',
+                    marginBottom: '40px'
+                }
+            }, React.createElement('h2', {
+                style: {
+                    fontSize: '3.2rem',
+                    fontWeight: '900',
+                    margin: '0 auto 2.5rem auto',
+                    color: '#ffffff',
+                    textAlign: 'center'
+                }
+            }, 'PORTFOLIO'));
+        };
+
+        // Video Item Component
+        const VideoItem = ({ video, index, isActive, isPlaying, onPlayPause, onEnded, onVolumeChange, volume, videoRef, showControls, setShowControls }) => {
+            const [localVolume, setLocalVolume] = React.useState(volume);
+            const localVideoRef = React.useRef(null);
+
+            React.useEffect(() => {
+                setLocalVolume(volume);
+            }, [volume]);
+            
+            React.useEffect(() => {
+                const videoEl = localVideoRef.current;
+                if (videoEl && isActive) {
+                    videoEl.volume = localVolume;
+                }
+            }, [localVolume, isActive]);
+
+            const dimensions = video.aspect === '9:16' 
+                ? { width: '320px', height: '569px' }
+                : { width: '640px', height: '360px' };
+
+            return React.createElement('div', {
+                className: 'relative overflow-hidden rounded-2xl shadow-2xl',
+                style: {
+                    ...dimensions,
+                    background: '#000'
+                },
+                onMouseEnter: () => isActive && setShowControls(true),
+                onMouseLeave: () => isActive && setShowControls(false)
+            }, [
+                React.createElement('video', {
+                    key: 'video',
+                    ref: (el) => {
+                        localVideoRef.current = el;
+                        if (el) {
+                            el.volume = localVolume;
+                        }
+                        if (typeof videoRef === 'function') {
+                            videoRef(el);
+                        }
+                    },
+                    src: video.src,
+                    className: 'w-full h-full object-contain',
+                    playsInline: true,
+                    muted: false,
+                    preload: isActive ? 'metadata' : 'none',
+                    controls: false,
+                    onLoadedData: () => {
+                        console.log('✅ Video loaded:', video.src);
+                    },
+                    onError: (e) => {
+                        console.error('❌ Video error:', video.src, e);
+                    },
+                    onEnded: () => {
+                        if (typeof onEnded === 'function') onEnded();
+                    }
+                }),
+                
+                // Play button for active video
+                isActive && showControls && React.createElement('button', {
+                    key: 'play-button',
+                    onClick: onPlayPause,
+                    style: {
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        width: '80px',
+                        height: '80px',
+                        marginTop: '-40px',
+                        marginLeft: '-40px',
+                        borderRadius: '50%',
+                        background: 'rgba(0, 0, 0, 0.8)',
+                        border: '2px solid rgba(0, 191, 255, 0.5)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        cursor: 'pointer',
+                        color: 'white',
+                        fontSize: '20px'
+                    }
+                }, React.createElement('i', {
+                    className: isPlaying ? 'fas fa-pause' : 'fas fa-play'
+                }))
+            ]);
+        };
+
+        // World-Class Portfolio Component
+        const WorldClassPortfolio = () => {
+            const startAt = React.useMemo(() => {
+                const idx = portfolioData.findIndex(v => v.src && v.src.indexOf('ELONMUSKNEWS.mp4') !== -1);
+                return idx >= 0 ? idx : 0;
+            }, []);
+            const [currentIndex, setCurrentIndex] = React.useState(portfolioData.length + startAt);
+            const [isPlaying, setIsPlaying] = React.useState(false);
+            const [volume, setVolume] = React.useState(0.5);
+            const [showControls, setShowControls] = React.useState(false);
+            const videoRefs = React.useRef({});
+
+            // Create infinite loop data
+            const infiniteData = React.useMemo(() => {
+                return [...portfolioData, ...portfolioData, ...portfolioData];
+            }, []);
+
+            // Pause all videos except active
+            React.useEffect(() => {
+                Object.keys(videoRefs.current).forEach(key => {
+                    const video = videoRefs.current[key];
+                    if (video) {
+                        const videoIndex = parseInt(key);
+                        if (videoIndex !== currentIndex) {
+                            video.pause();
+                            video.currentTime = 0;
+                        }
+                    }
+                });
+                setIsPlaying(false);
+            }, [currentIndex]);
+
+            const handleVideoControl = () => {
+                const activeVideo = videoRefs.current[currentIndex];
+                if (!activeVideo) return;
+
+                if (isPlaying) {
+                    activeVideo.pause();
+                    setIsPlaying(false);
+                } else {
+                    activeVideo.play();
+                    setIsPlaying(true);
+                }
+            };
+
+            const handleVolumeChange = (newVolume) => {
+                setVolume(newVolume);
+                const activeVideo = videoRefs.current[currentIndex];
+                if (activeVideo) {
+                    activeVideo.volume = newVolume;
+                }
+            };
+
+            const handleSlideChange = (newIndex) => {
+                setCurrentIndex(newIndex);
+                setShowControls(true);
+            };
+
+            const handlePrev = () => {
+                const newIndex = currentIndex > 0 ? currentIndex - 1 : infiniteData.length - 1;
+                handleSlideChange(newIndex);
+            };
+
+            const handleNext = () => {
+                const newIndex = currentIndex < infiniteData.length - 1 ? currentIndex + 1 : 0;
+                handleSlideChange(newIndex);
+            };
+
+            const handleEnded = () => {
+                handleNext();
+            };
+            
+            const handleDotClick = (index) => {
+                const targetIndex = index + portfolioData.length;
+                if (targetIndex !== currentIndex) {
+                    handleSlideChange(targetIndex);
+                }
+            };
+
+            // Render carousel items
+            const renderCarouselItems = () => {
+                return infiniteData.map((video, index) => {
+                    const offset = index - currentIndex;
+                    
+                    if (Math.abs(offset) > 2) return null;
+                    
+                    const isActive = offset === 0;
+                    const translateX = offset * 400;
+                    const scale = isActive ? 1 : 0.75;
+                    const opacity = isActive ? 1 : 0.4;
+                    const blur = isActive ? 0 : 8;
+                    const zIndex = isActive ? 20 : 10 - Math.abs(offset);
+                    
+                    return React.createElement('div', {
+                        key: `${video.id}-${index}`,
+                        className: 'absolute transition-all duration-600 ease-out',
+                        style: {
+                            transform: `translateX(${translateX}px) scale(${scale})`,
+                            opacity: opacity,
+                            filter: `blur(${blur}px)`,
+                            zIndex: zIndex,
+                            cursor: isActive ? 'default' : 'pointer'
+                        },
+                        onClick: !isActive ? () => handleSlideChange(index) : undefined
+                    }, React.createElement(VideoItem, {
+                        video: video,
+                        index: index,
+                        isActive: isActive,
+                        isPlaying: isActive && isPlaying,
+                        onPlayPause: handleVideoControl,
+                        onEnded: handleEnded,
+                        onVolumeChange: handleVolumeChange,
+                        volume: volume,
+                        videoRef: (el) => { if (el) { videoRefs.current[index] = el; } },
+                        showControls: isActive && showControls,
+                        setShowControls: setShowControls
+                    }));
+                });
+            };
+
+            return React.createElement('div', {
+                className: 'portfolio-container relative min-h-screen flex flex-col justify-center items-center',
+                style: { 
+                    background: 'transparent',
+                    overflow: 'hidden'
+                }
+            }, [
+                React.createElement(PortfolioHeader, { key: 'header' }),
+                
+                React.createElement('div', {
+                    key: 'carousel',
+                    className: 'relative w-full flex justify-center items-center',
+                    style: { height: '650px' }
+                }, [
+                    React.createElement('div', {
+                        key: 'carousel-container',
+                        className: 'relative w-full h-full flex justify-center items-center',
+                        style: { perspective: '1000px' }
+                    }, renderCarouselItems()),
+                    
+                    // Navigation arrows
+                    React.createElement('button', {
+                        key: 'prev-arrow',
+                        onClick: handlePrev,
+                        className: 'absolute left-8 top-1/2 transform -translate-y-1/2 z-30',
+                        style: {
+                            background: 'rgba(255, 255, 255, 0.15)',
+                            backdropFilter: 'blur(15px)',
+                            border: '1px solid rgba(255, 255, 255, 0.3)',
+                            borderRadius: '50%',
+                            width: '70px',
+                            height: '70px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: 'pointer',
+                            transition: 'all 0.4s ease',
+                            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)'
+                        }
+                    }, React.createElement('i', {
+                        className: 'fas fa-chevron-left',
+                        style: { color: 'white', fontSize: '24px' }
+                    })),
+                    
+                    React.createElement('button', {
+                        key: 'next-arrow',
+                        onClick: handleNext,
+                        className: 'absolute right-8 top-1/2 transform -translate-y-1/2 z-30',
+                        style: {
+                            background: 'rgba(255, 255, 255, 0.15)',
+                            backdropFilter: 'blur(15px)',
+                            border: '1px solid rgba(255, 255, 255, 0.3)',
+                            borderRadius: '50%',
+                            width: '70px',
+                            height: '70px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: 'pointer',
+                            transition: 'all 0.4s ease',
+                            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)'
+                        }
+                    }, React.createElement('i', {
+                        className: 'fas fa-chevron-right',
+                        style: { color: 'white', fontSize: '24px' }
+                    }))
+                ]),
+                
+                // Dots navigation
+                React.createElement('div', {
+                    key: 'dots',
+                    className: 'flex justify-center space-x-3 mt-8',
+                    style: { zIndex: 30 }
+                }, portfolioData.map((_, index) => {
+                    const isActive = index === (currentIndex % portfolioData.length);
+                    return React.createElement('button', {
+                        key: index,
+                        onClick: () => handleDotClick(index),
+                        className: `w-3 h-3 rounded-full transition-all duration-300 ${isActive ? 'bg-blue-400 scale-125' : 'bg-gray-400 hover:bg-gray-300'}`,
+                        style: {
+                            border: 'none',
+                            cursor: 'pointer',
+                            boxShadow: isActive ? '0 0 10px rgba(59, 130, 246, 0.5)' : 'none'
+                        }
+                    });
+                }))
+            ]);
+        };
+
+        // Initialize portfolio
+        console.log('🎯 Initializing world-class portfolio...');
+        const portfolioRoot = document.getElementById('portfolio-root');
+        
+        if (portfolioRoot && typeof React !== 'undefined' && typeof ReactDOM !== 'undefined') {
+            try {
+                portfolioRoot.innerHTML = '';
+                ReactDOM.render(React.createElement(WorldClassPortfolio), portfolioRoot);
+                console.log('✅ World-class portfolio rendered successfully!');
+            } catch (error) {
+                console.error('❌ World-class portfolio error:', error);
+            }
+        } else {
+            console.error('❌ Cannot initialize world-class portfolio:', {
+                portfolioRoot: !!portfolioRoot,
+                React: typeof React,
+                ReactDOM: typeof ReactDOM
+            });
+        }
+    </script>
+
+    <!-- 🌠 KOSMICZNE TŁO -->
+    <script>
+        // System kosmiczny z cząsteczkami
+        class GlobalParticles {
+            constructor() {
+                this.canvas = document.createElement('canvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.particles = [];
+                this.mouse = { x: 0, y: 0 };
+                
+                this.init();
+            }
+            
+            init() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+                this.canvas.style.position = 'fixed';
+                this.canvas.style.top = '0';
+                this.canvas.style.left = '0';
+                this.canvas.style.pointerEvents = 'none';
+                this.canvas.style.zIndex = '-2';
+                this.canvas.style.opacity = '0.6';
+                
+                document.body.appendChild(this.canvas);
+                this.createParticles();
+                this.bindEvents();
+                this.animate();
+            }
+            
+            createParticles() {
+                for (let i = 0; i < 300; i++) {
+                    this.particles.push({
+                        x: Math.random() * window.innerWidth,
+                        y: Math.random() * window.innerHeight,
+                        vx: (Math.random() - 0.5) * 0.2,
+                        vy: (Math.random() - 0.5) * 0.2,
+                        radius: Math.random() * 1.5 + 0.5,
+                        opacity: Math.random() * 0.8 + 0.2,
+                        color: `hsl(${180 + Math.random() * 60}, 70%, 60%)`
+                    });
+                }
+            }
+            
+            bindEvents() {
+                window.addEventListener('resize', () => {
+                    this.canvas.width = window.innerWidth;
+                    this.canvas.height = window.innerHeight;
+                });
+                
+                window.addEventListener('mousemove', (e) => {
+                    this.mouse.x = e.clientX;
+                    this.mouse.y = e.clientY;
+                });
+            }
+            
+            drawParticles() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                
+                this.particles.forEach(particle => {
+                    // Mouse interaction
+                    const dx = this.mouse.x - particle.x;
+                    const dy = this.mouse.y - particle.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < 100) {
+                        const force = (100 - distance) / 100;
+                        particle.vx -= (dx / distance) * force * 0.01;
+                        particle.vy -= (dy / distance) * force * 0.01;
+                    }
+                    
+                    // Draw particle
+                    this.ctx.beginPath();
+                    this.ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+                    this.ctx.fillStyle = particle.color;
+                    this.ctx.globalAlpha = particle.opacity;
+                    this.ctx.fill();
+                    
+                    // Add glow
+                    this.ctx.shadowBlur = 5;
+                    this.ctx.shadowColor = particle.color;
+                    this.ctx.fill();
+                    this.ctx.shadowBlur = 0;
+                });
+                
+                this.ctx.globalAlpha = 1;
+            }
+            
+            updateParticles() {
+                this.particles.forEach(particle => {
+                    particle.x += particle.vx;
+                    particle.y += particle.vy;
+                    
+                    // Boundary wrapping
+                    if (particle.x < 0) particle.x = window.innerWidth;
+                    if (particle.x > window.innerWidth) particle.x = 0;
+                    if (particle.y < 0) particle.y = window.innerHeight;
+                    if (particle.y > window.innerHeight) particle.y = 0;
+                    
+                    // Velocity damping
+                    particle.vx *= 0.99;
+                    particle.vy *= 0.99;
+                });
+            }
+            
+            animate() {
+                this.updateParticles();
+                this.drawParticles();
+                requestAnimationFrame(() => this.animate());
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const gp = new GlobalParticles();
+            if (!gp || !gp.canvas) {
+                console.log('GlobalParticles disabled or canvas missing.');
+            }
+        });
+    </script>
+    <!-- 🌠 KONIEC KOSMICZNEGO TŁA -->
+
+    <!-- Essential Scripts -->
+    <script src="script.js"></script>
+    
+    <!-- Cookie Consent Script -->
+    <script>
+        // Cookie consent functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const cookieModal = document.getElementById('cookie-modal-overlay');
+            const acceptAllBtn = document.getElementById('cm-accept-all');
+            const saveBtn = document.getElementById('cm-save');
+            
+            // Show cookie modal if consent not given
+            if (!localStorage.getItem('cookie-consent-v1')) {
+                cookieModal.style.display = 'flex';
+            }
+            
+            acceptAllBtn.addEventListener('click', function() {
+                localStorage.setItem('cookie-consent-v1', JSON.stringify({
+                    analytics: true,
+                    marketing: true
+                }));
+                cookieModal.style.display = 'none';
+                location.reload();
+            });
+            
+            saveBtn.addEventListener('click', function() {
+                const analytics = document.getElementById('cm-analytics').checked;
+                const marketing = document.getElementById('cm-marketing').checked;
+                
+                localStorage.setItem('cookie-consent-v1', JSON.stringify({
+                    analytics: analytics,
+                    marketing: marketing
+                }));
+                cookieModal.style.display = 'none';
+                location.reload();
+            });
+        });
+    </script>
+    </main>
+</body>
+</html>

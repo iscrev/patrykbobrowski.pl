@@ -640,7 +640,7 @@ class LiquidPortfolio {
 
     // Form handling
     setupFormHandling() {
-        const form = document.querySelector('.contact-form form');
+        const form = document.getElementById('contact-form');
         if (form) {
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
@@ -1889,4 +1889,15 @@ window.addEventListener('DOMContentLoaded', () => {
   heroVideo.addEventListener('ended', () => {
     heroVideo.classList.remove('playing');
   });
+});
+
+// Initialize the LiquidPortfolio class when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('Initializing LiquidPortfolio...');
+    try {
+        const portfolio = new LiquidPortfolio();
+        console.log('LiquidPortfolio initialized successfully');
+    } catch (error) {
+        console.error('Error initializing LiquidPortfolio:', error);
+    }
 });
