@@ -640,36 +640,119 @@ class LiquidPortfolio {
 
     // Form handling
     setupFormHandling() {
-        const form = document.getElementById('contact-form');
-        if (form) {
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                this.handleFormSubmission(form);
-            });
-        }
+        // Form handling is now done by the test script in HTML
+        console.log('Form handling setup skipped - using test script');
     }
 
     async handleFormSubmission(form) {
         const formData = new FormData(form);
         const submitBtn = form.querySelector('button[type="submit"]');
+        const statusEl = document.getElementById('contact-status');
         const originalText = submitBtn.innerHTML;
+        
+        // Check honeypot field (anti-spam)
+        const honey = formData.get('_honey');
+        if (honey && honey.trim() !== '') {
+            console.log('Honeypot field filled - likely spam');
+            if (statusEl) {
+                statusEl.innerHTML = '<div style="color: #ff9800; font-weight: bold; padding: 10px; background: rgba(255, 152, 0, 0.1); border-radius: 8px; margin: 10px 0;">⚠️ Wykryto podejrzaną aktywność.</div>';
+            }
+            return;
+        }
+        
+        // Validate required fields
+        const name = formData.get('name')?.trim();
+        const email = formData.get('email')?.trim();
+        const message = formData.get('message')?.trim();
+        const privacyConsent = formData.get('privacy-consent');
+        
+        if (!name || !email || !message) {
+            if (statusEl) {
+                statusEl.innerHTML = '<div style="color: #ff9800; font-weight: bold; padding: 10px; background: rgba(255, 152, 0, 0.1); border-radius: 8px; margin: 10px 0;">⚠️ Proszę wypełnić wszystkie wymagane pola.</div>';
+            }
+            return;
+        }
+        
+        if (!privacyConsent) {
+            if (statusEl) {
+                statusEl.innerHTML = '<div style="color: #ff9800; font-weight: bold; padding: 10px; background: rgba(255, 152, 0, 0.1); border-radius: 8px; margin: 10px 0;">⚠️ Proszę zaakceptować zasady prywatności.</div>';
+            }
+            return;
+        }
         
         // Show loading state
         submitBtn.innerHTML = '<span>Wysyłanie...</span>';
         submitBtn.disabled = true;
+        if (statusEl) statusEl.textContent = '';
         
-        // Simulate form submission (replace with actual API call)
-        setTimeout(() => {
-            submitBtn.innerHTML = '<span>Wysłano! ✓</span>';
-            submitBtn.style.background = 'linear-gradient(135deg, #4CAF50, #45a049)';
+        try {
+            // Get Formspree endpoint from form data attribute
+            const endpoint = form.getAttribute('data-endpoint');
+            if (!endpoint) {
+                throw new Error('Brak konfiguracji Formspree');
+            }
             
+            console.log('Sending form to:', endpoint);
+            console.log('Form data:', Object.fromEntries(formData));
+            
+            // Send to Formspree using FormData (standard form submission)
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                body: formData
+            });
+            
+            console.log('Response status:', response.status);
+            console.log('Response ok:', response.ok);
+            
+            if (response.ok) {
+                // Success - Formspree returns 200 OK for successful submissions
+                submitBtn.innerHTML = '<span>Wysłano! ✓</span>';
+                submitBtn.style.background = 'linear-gradient(135deg, #4CAF50, #45a049)';
+                submitBtn.style.color = 'white';
+                submitBtn.style.fontWeight = 'bold';
+                
+                if (statusEl) {
+                    statusEl.innerHTML = '<div style="color: #4CAF50; font-weight: bold; padding: 10px; background: rgba(76, 175, 80, 0.1); border-radius: 8px; margin: 10px 0;">✓ Wiadomość została wysłana pomyślnie! Dziękujemy za kontakt.</div>';
+                }
+                
+                form.reset();
+                
+                // Add a brief success animation
+                submitBtn.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    submitBtn.style.transform = 'scale(1)';
+                }, 200);
+            } else {
+                const errorText = await response.text();
+                console.error('Formspree error response:', errorText);
+                throw new Error(`Błąd serwera: ${response.status} - ${response.statusText}`);
+            }
+            
+        } catch (error) {
+            console.error('Form submission error:', error);
+            
+            // Show error state
+            submitBtn.innerHTML = '<span>Błąd wysyłania</span>';
+            submitBtn.style.background = 'linear-gradient(135deg, #f44336, #d32f2f)';
+            submitBtn.style.color = 'white';
+            submitBtn.style.fontWeight = 'bold';
+            
+            if (statusEl) {
+                statusEl.innerHTML = `<div style="color: #f44336; font-weight: bold; padding: 10px; background: rgba(244, 67, 54, 0.1); border-radius: 8px; margin: 10px 0;">❌ Błąd: ${error.message}. Spróbuj ponownie lub skontaktuj się bezpośrednio.</div>`;
+            }
+            
+        } finally {
+            // Reset button after delay
             setTimeout(() => {
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
                 submitBtn.style.background = '';
-                form.reset();
-            }, 2000);
-        }, 1500);
+                submitBtn.style.color = '';
+                submitBtn.style.fontWeight = '';
+                submitBtn.style.transform = '';
+                if (statusEl) statusEl.innerHTML = '';
+            }, 5000); // Increased to 5 seconds to give users more time to see the confirmation
+        }
     }
 
     // Interactive elements

@@ -1792,12 +1792,26 @@
                     </div>
                 </div>
                 <form id="contact-form" class="contact-form" method="POST" accept-charset="UTF-8" data-endpoint="https://formspree.io/f/mwpqyqzn">
-                    <!-- Honeypot anty-spam (zostaw puste) -->
-                    <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none">
 
                     <div class="form-group">
                         <input type="text" name="name" placeholder="Imię i nazwisko" required>
                     </div>
+                    <input type="hidden" name="_subject" value="Nowa wiadomość ze strony">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_next" value="">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="hidden" name="_format" value="plain">
+                    <input type="hidden" name="_autoresponse" value="Dziękujemy za wiadomość! Otrzymaliśmy Twoją wiadomość i odpowiemy wkrótce.">
+                    <input type="hidden" name="_gotcha" style="display:none">
+                    <input type="hidden" name="_replyto" value="">
+                    <input type="hidden" name="_cc" value="">
+                    <input type="hidden" name="_bcc" value="">
+                    <input type="hidden" name="_language" value="pl">
+                    <input type="hidden" name="_timezone" value="Europe/Warsaw">
+                    <input type="hidden" name="_date" value="">
+                    <input type="hidden" name="_time" value="">
+                    <input type="hidden" name="_ip" value="">
+                    <input type="hidden" name="_useragent" value="">
                     <div class="form-group">
                         <input type="email" name="email" placeholder="Twój e-mail" inputmode="email" required>
                     </div>
@@ -1806,7 +1820,7 @@
                     </div>
                     <div class="form-group form-consent" style="margin: 0;">
                       <label class="consent-control" for="privacy-consent">
-                        <input type="checkbox" id="privacy-consent" required>
+                        <input type="checkbox" id="privacy-consent" name="privacy-consent" required>
                         <span class="checkmark" aria-hidden="true"></span>
                         <span class="consent-block">
                           <span class="consent-text apple-clean-text">Akceptuję zasady prywatności</span>
@@ -1823,6 +1837,120 @@
             </div>
         </section>
     </main>
+    
+    <!-- Test script for form debugging -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('=== FORM DEBUGGING ===');
+            const form = document.getElementById('contact-form');
+            console.log('Form found:', form);
+            
+            if (form) {
+                console.log('Form endpoint:', form.getAttribute('data-endpoint'));
+                console.log('Form method:', form.method);
+                
+                // Add a simple test listener
+                form.addEventListener('submit', (e) => {
+                    console.log('=== FORM SUBMIT TRIGGERED ===');
+                    e.preventDefault();
+                    
+                    const formData = new FormData(form);
+                    console.log('Form data:', Object.fromEntries(formData));
+                    
+                    // Validate form data
+                    const name = formData.get('name')?.trim();
+                    const email = formData.get('email')?.trim();
+                    const message = formData.get('message')?.trim();
+                    const privacyConsent = formData.get('privacy-consent');
+                    
+                    console.log('Validation:', { name, email, message, privacyConsent });
+                    
+                    if (!name || !email || !message) {
+                        console.log('Validation failed - missing required fields');
+                        const statusEl = document.getElementById('contact-status');
+                        if (statusEl) {
+                            statusEl.innerHTML = '<div style="color: #ff9800; font-weight: bold; padding: 10px; background: rgba(255, 152, 0, 0.1); border-radius: 8px; margin: 10px 0;">⚠️ Proszę wypełnić wszystkie wymagane pola.</div>';
+                        }
+                        return;
+                    }
+                    
+                    if (!privacyConsent) {
+                        console.log('Validation failed - privacy consent not checked');
+                        const statusEl = document.getElementById('contact-status');
+                        if (statusEl) {
+                            statusEl.innerHTML = '<div style="color: #ff9800; font-weight: bold; padding: 10px; background: rgba(255, 152, 0, 0.1); border-radius: 8px; margin: 10px 0;">⚠️ Proszę zaakceptować zasady prywatności.</div>';
+                        }
+                        return;
+                    }
+                    
+                    // Test the submission
+                    const endpoint = form.getAttribute('data-endpoint');
+                    console.log('Sending to endpoint:', endpoint);
+                    
+                    // Show loading state
+                    const submitBtn = form.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.innerHTML;
+                    submitBtn.innerHTML = '<span>Wysyłanie...</span>';
+                    submitBtn.disabled = true;
+                    
+                    fetch(endpoint, {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                        },
+                        body: formData
+                    })
+                    .then(response => {
+                        console.log('Response status:', response.status);
+                        console.log('Response ok:', response.ok);
+                        console.log('Response headers:', response.headers);
+                        return response.text();
+                    })
+                    .then(text => {
+                        console.log('Response text:', text);
+                        
+                        // Show success message
+                        const statusEl = document.getElementById('contact-status');
+                        if (statusEl) {
+                            statusEl.innerHTML = '<div style="color: #4CAF50; font-weight: bold; padding: 10px; background: rgba(76, 175, 80, 0.1); border-radius: 8px; margin: 10px 0;">✓ Wiadomość została wysłana pomyślnie! Dziękujemy za kontakt.</div>';
+                        }
+                        
+                        // Update button
+                        submitBtn.innerHTML = '<span>Wysłano! ✓</span>';
+                        submitBtn.style.background = 'linear-gradient(135deg, #4CAF50, #45a049)';
+                        submitBtn.style.color = 'white';
+                        
+                        // Reset form
+                        form.reset();
+                        
+                        // Reset button after delay
+                        setTimeout(() => {
+                            submitBtn.innerHTML = originalText;
+                            submitBtn.disabled = false;
+                            submitBtn.style.background = '';
+                            submitBtn.style.color = '';
+                            if (statusEl) statusEl.innerHTML = '';
+                        }, 5000);
+                    })
+                    .catch(error => {
+                        console.error('Fetch error:', error);
+                        
+                        // Show error message
+                        const statusEl = document.getElementById('contact-status');
+                        if (statusEl) {
+                            statusEl.innerHTML = `<div style="color: #f44336; font-weight: bold; padding: 10px; background: rgba(244, 67, 54, 0.1); border-radius: 8px; margin: 10px 0;">❌ Błąd: ${error.message}</div>`;
+                        }
+                        
+                        // Reset button
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                    });
+                });
+                
+                console.log('Test form listener added');
+            }
+        });
+    </script>
     <script>
       // Auto-resize textarea (Wiadomość) – dopasowanie wysokości do treści
       (function(){
@@ -2484,7 +2612,17 @@
             const [isPlaying, setIsPlaying] = React.useState(false);
             const [volume, setVolume] = React.useState(0.5);
             const [showControls, setShowControls] = React.useState(false);
+            const [isMobile, setIsMobile] = React.useState(window.innerWidth <= 768);
             const videoRefs = React.useRef({});
+
+            // Track screen size for responsive behavior
+            React.useEffect(() => {
+                const handleResize = () => {
+                    setIsMobile(window.innerWidth <= 768);
+                };
+                window.addEventListener('resize', handleResize);
+                return () => window.removeEventListener('resize', handleResize);
+            }, []);
 
             // Create infinite loop data
             const infiniteData = React.useMemo(() => {
@@ -2614,7 +2752,7 @@
                         style: { perspective: '1000px' }
                     }, renderCarouselItems()),
                     
-                    // Navigation arrows
+                    // Navigation arrows - hidden on mobile when video is playing
                 React.createElement('button', {
                         key: 'prev-arrow',
                         onClick: handlePrev,
@@ -2631,7 +2769,9 @@
                         justifyContent: 'center',
                         cursor: 'pointer',
                         transition: 'all 0.4s ease',
-                        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)'
+                        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+                        opacity: isPlaying && isMobile ? '0' : '1',
+                        pointerEvents: isPlaying && isMobile ? 'none' : 'auto'
                     }
                 }, React.createElement('i', {
                     className: 'fas fa-chevron-left',
@@ -2654,7 +2794,9 @@
                         justifyContent: 'center',
                         cursor: 'pointer',
                         transition: 'all 0.4s ease',
-                        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)'
+                        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+                        opacity: isPlaying && isMobile ? '0' : '1',
+                        pointerEvents: isPlaying && isMobile ? 'none' : 'auto'
                     }
                 }, React.createElement('i', {
                     className: 'fas fa-chevron-right',
@@ -2662,11 +2804,16 @@
                     }))
                 ]),
                 
-                // Dots navigation
+                // Dots navigation - hidden on mobile when video is playing
                 React.createElement('div', {
                     key: 'dots',
                     className: 'flex justify-center space-x-3 mt-8',
-                    style: { zIndex: 30 }
+                    style: { 
+                        zIndex: 30,
+                        opacity: isPlaying && isMobile ? '0' : '1',
+                        pointerEvents: isPlaying && isMobile ? 'none' : 'auto',
+                        transition: 'opacity 0.4s ease'
+                    }
                 }, portfolioData.map((_, index) => {
                     const isActive = index === (currentIndex % portfolioData.length);
                     return React.createElement('button', {
@@ -2905,76 +3052,7 @@
         }
     </script>
 
-            <!-- Test script to debug button functionality -->
-        <script>
-            // Test if functions are available
-            window.addEventListener('DOMContentLoaded', () => {
-                console.log('DOM loaded, testing button functions...');
-                console.log('scrollToPortfolio function:', typeof scrollToPortfolio);
-                console.log('scrollToContact function:', typeof scrollToContact);
-                
-                // Test if elements exist
-                console.log('Portfolio element:', document.getElementById('portfolio'));
-                console.log('Contact element:', document.getElementById('contact'));
-                
-                // Add click event listeners to ALL buttons as backup
-                const allButtons = document.querySelectorAll('button');
-                console.log('Found buttons:', allButtons.length);
-                
-                allButtons.forEach((btn, index) => {
-                    console.log(`Button ${index}:`, btn.textContent.trim(), btn.className, btn.onclick);
-                    
-                    // Add backup click listener to all buttons
-                    btn.addEventListener('click', (e) => {
-                        console.log(`Button ${index} clicked:`, btn.textContent.trim());
-                        
-                        // Check if it's a portfolio button
-                        if (btn.textContent.includes('Zobacz moje prace') || btn.onclick?.toString().includes('scrollToPortfolio')) {
-                            console.log('Portfolio button clicked via backup listener');
-                            e.preventDefault();
-                            if (typeof scrollToPortfolio === 'function') {
-                                scrollToPortfolio();
-                            } else {
-                                document.getElementById('portfolio')?.scrollIntoView({
-                                    behavior: 'smooth',
-                                    block: 'start'
-                                });
-                            }
-                        }
-                        
-                        // Check if it's a contact button
-                        if (btn.textContent.includes('Kontakt') || btn.textContent.includes('Rozpocznij współpracę') || btn.onclick?.toString().includes('scrollToContact')) {
-                            console.log('Contact button clicked via backup listener');
-                            e.preventDefault();
-                            if (typeof scrollToContact === 'function') {
-                                scrollToContact();
-                            } else {
-                                document.getElementById('contact')?.scrollIntoView({
-                                    behavior: 'smooth',
-                                    block: 'start'
-                                });
-                            }
-                        }
-                        
-                        // Check if it's a submit button
-                        if (btn.type === 'submit' || btn.textContent.includes('Wyślij wiadomość')) {
-                            console.log('Submit button clicked via backup listener');
-                            // Let the form handle the submission
-                        }
-                    });
-                });
-                
-                // Test form submission
-                const contactForm = document.getElementById('contact-form');
-                if (contactForm) {
-                    console.log('Contact form found, testing submission');
-                    contactForm.addEventListener('submit', (e) => {
-                        console.log('Contact form submitted');
-                        // The form will be handled by the LiquidPortfolio class
-                    });
-                }
-            });
-        </script>
+
 
 </body>
 </html>

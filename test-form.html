@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Test Formspree Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .contact-form {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:disabled {
+            background: #ccc;
+        }
+        .status {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .success {
+            background: rgba(76, 175, 80, 0.1);
+            color: #4CAF50;
+            border: 1px solid #4CAF50;
+        }
+        .error {
+            background: rgba(244, 67, 54, 0.1);
+            color: #f44336;
+            border: 1px solid #f44336;
+        }
+        .warning {
+            background: rgba(255, 152, 0, 0.1);
+            color: #ff9800;
+            border: 1px solid #ff9800;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Formspree Integration</h1>
+    <p>This is a test form to verify that Formspree is working correctly with the endpoint: <strong>https://formspree.io/f/mwpqyqzn</strong></p>
+    
+    <form id="contact-form" class="contact-form" method="POST" accept-charset="UTF-8" data-endpoint="https://formspree.io/f/mwpqyqzn">
+        <!-- Honeypot anty-spam (zostaw puste) -->
+        <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none">
+
+        <div class="form-group">
+            <input type="text" name="name" placeholder="Imię i nazwisko" required>
+        </div>
+        <div class="form-group">
+            <input type="email" name="email" placeholder="Twój e-mail" inputmode="email" required>
+        </div>
+        <div class="form-group">
+            <textarea name="message" placeholder="Wiadomość" rows="5" required></textarea>
+        </div>
+        <div class="form-group">
+            <label>
+                <input type="checkbox" name="privacy-consent" required>
+                Akceptuję zasady prywatności
+            </label>
+        </div>
+        <div id="contact-status"></div>
+        <button type="submit">
+            <span>Wyślij wiadomość</span>
+        </button>
+    </form>
+
+    <script>
+        // Form handling
+        const form = document.getElementById('contact-form');
+        const statusEl = document.getElementById('contact-status');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(form);
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            
+            // Check honeypot field (anti-spam)
+            const honey = formData.get('_honey');
+            if (honey && honey.trim() !== '') {
+                console.log('Honeypot field filled - likely spam');
+                statusEl.innerHTML = '<div class="status warning">⚠️ Wykryto podejrzaną aktywność.</div>';
+                return;
+            }
+            
+            // Validate required fields
+            const name = formData.get('name')?.trim();
+            const email = formData.get('email')?.trim();
+            const message = formData.get('message')?.trim();
+            const privacyConsent = formData.get('privacy-consent');
+            
+            if (!name || !email || !message) {
+                statusEl.innerHTML = '<div class="status warning">⚠️ Proszę wypełnić wszystkie wymagane pola.</div>';
+                return;
+            }
+            
+            if (!privacyConsent) {
+                statusEl.innerHTML = '<div class="status warning">⚠️ Proszę zaakceptować zasady prywatności.</div>';
+                return;
+            }
+            
+            // Show loading state
+            submitBtn.innerHTML = '<span>Wysyłanie...</span>';
+            submitBtn.disabled = true;
+            statusEl.innerHTML = '';
+            
+            try {
+                // Get Formspree endpoint from form data attribute
+                const endpoint = form.getAttribute('data-endpoint');
+                if (!endpoint) {
+                    throw new Error('Brak konfiguracji Formspree');
+                }
+                
+                console.log('Sending form to:', endpoint);
+                console.log('Form data:', Object.fromEntries(formData));
+                
+                // Send to Formspree using FormData (standard form submission)
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                console.log('Response status:', response.status);
+                console.log('Response ok:', response.ok);
+                
+                if (response.ok) {
+                    // Success - Formspree returns 200 OK for successful submissions
+                    submitBtn.innerHTML = '<span>Wysłano! ✓</span>';
+                    submitBtn.style.background = '#4CAF50';
+                    submitBtn.style.color = 'white';
+                    submitBtn.style.fontWeight = 'bold';
+                    
+                    statusEl.innerHTML = '<div class="status success">✓ Wiadomość została wysłana pomyślnie! Dziękujemy za kontakt.</div>';
+                    
+                    form.reset();
+                    
+                    // Add a brief success animation
+                    submitBtn.style.transform = 'scale(1.05)';
+                    setTimeout(() => {
+                        submitBtn.style.transform = 'scale(1)';
+                    }, 200);
+                } else {
+                    const errorText = await response.text();
+                    console.error('Formspree error response:', errorText);
+                    throw new Error(`Błąd serwera: ${response.status} - ${response.statusText}`);
+                }
+                
+            } catch (error) {
+                console.error('Form submission error:', error);
+                
+                // Show error state
+                submitBtn.innerHTML = '<span>Błąd wysyłania</span>';
+                submitBtn.style.background = '#f44336';
+                submitBtn.style.color = 'white';
+                submitBtn.style.fontWeight = 'bold';
+                
+                statusEl.innerHTML = `<div class="status error">❌ Błąd: ${error.message}. Spróbuj ponownie lub skontaktuj się bezpośrednio.</div>`;
+                
+            } finally {
+                // Reset button after delay
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    submitBtn.style.background = '';
+                    submitBtn.style.color = '';
+                    submitBtn.style.fontWeight = '';
+                    submitBtn.style.transform = '';
+                    statusEl.innerHTML = '';
+                }, 5000);
+            }
+        });
+    </script>
+</body>
+</html>

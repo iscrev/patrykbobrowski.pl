@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Test Formspree Endpoint</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-form {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .status {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .success {
+            background: rgba(76, 175, 80, 0.1);
+            color: #4CAF50;
+            border: 1px solid #4CAF50;
+        }
+        .error {
+            background: rgba(244, 67, 54, 0.1);
+            color: #f44336;
+            border: 1px solid #f44336;
+        }
+        .info {
+            background: rgba(33, 150, 243, 0.1);
+            color: #2196F3;
+            border: 1px solid #2196F3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Formspree Endpoint</h1>
+    <p>Testing endpoint: <strong>https://formspree.io/f/mwpqyqzn</strong></p>
+    
+    <div class="test-form">
+        <h3>Test 1: Simple FormData</h3>
+        <button onclick="testSimpleFormData()">Test Simple FormData</button>
+        
+        <h3>Test 2: JSON Data</h3>
+        <button onclick="testJSONData()">Test JSON Data</button>
+        
+        <h3>Test 3: URL Encoded</h3>
+        <button onclick="testURLEncoded()">Test URL Encoded</button>
+        
+        <div id="status"></div>
+    </div>
+
+    <script>
+        const endpoint = 'https://formspree.io/f/mwpqyqzn';
+        
+        function showStatus(message, type = 'info') {
+            const statusEl = document.getElementById('status');
+            statusEl.innerHTML = `<div class="status ${type}">${message}</div>`;
+        }
+        
+        function testSimpleFormData() {
+            showStatus('Testing simple FormData...', 'info');
+            
+            const formData = new FormData();
+            formData.append('name', 'Test User');
+            formData.append('email', 'test@example.com');
+            formData.append('message', 'This is a test message from the endpoint test.');
+            
+            console.log('Sending FormData:', Object.fromEntries(formData));
+            
+            fetch(endpoint, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                console.log('Response:', response);
+                console.log('Status:', response.status);
+                console.log('OK:', response.ok);
+                return response.text();
+            })
+            .then(text => {
+                console.log('Response text:', text);
+                showStatus(`Success! Status: ${response.status}, Response: ${text}`, 'success');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showStatus(`Error: ${error.message}`, 'error');
+            });
+        }
+        
+        function testJSONData() {
+            showStatus('Testing JSON data...', 'info');
+            
+            const data = {
+                name: 'Test User JSON',
+                email: 'test@example.com',
+                message: 'This is a test message with JSON data.'
+            };
+            
+            console.log('Sending JSON:', data);
+            
+            fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                console.log('Response:', response);
+                console.log('Status:', response.status);
+                console.log('OK:', response.ok);
+                return response.text();
+            })
+            .then(text => {
+                console.log('Response text:', text);
+                showStatus(`Success! Status: ${response.status}, Response: ${text}`, 'success');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showStatus(`Error: ${error.message}`, 'error');
+            });
+        }
+        
+        function testURLEncoded() {
+            showStatus('Testing URL encoded data...', 'info');
+            
+            const data = new URLSearchParams();
+            data.append('name', 'Test User URL');
+            data.append('email', 'test@example.com');
+            data.append('message', 'This is a test message with URL encoded data.');
+            
+            console.log('Sending URL encoded:', data.toString());
+            
+            fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: data
+            })
+            .then(response => {
+                console.log('Response:', response);
+                console.log('Status:', response.status);
+                console.log('OK:', response.ok);
+                return response.text();
+            })
+            .then(text => {
+                console.log('Response text:', text);
+                showStatus(`Success! Status: ${response.status}, Response: ${text}`, 'success');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showStatus(`Error: ${error.message}`, 'error');
+            });
+        }
+    </script>
+</body>
+</html>
