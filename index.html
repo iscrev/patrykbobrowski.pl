@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <!-- Google Analytics (gtag.js) z Consent Mode v2 -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+
+    gtag('consent', 'default', {
+      'analytics_storage': 'denied',
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied'
+    });
+
+    try {
+      var state = JSON.parse(localStorage.getItem('cookie-consent-v1') || '{}');
+      if (state.analytics) {
+        gtag('consent', 'update', { 'analytics_storage': 'granted' });
+      }
+    } catch(e) {}
+
+    gtag('js', new Date());
+    gtag('config', 'G-89YQWBDKB5', { anonymize_ip: true });
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-89YQWBDKB5"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <!-- SEO -->
+  <title>Patryk Bobrowski — Montaż video, grafika i AI content</title>
+  <meta name="description" content="Portfolio Patryka Bobrowskiego: montaż shortów, reelsów, grafiki i proste kreacje AI dla social media i marek osobistych.">
+  <meta name="author" content="Patryk Bobrowski">
+  <meta name="theme-color" content="#050507">
+  <link rel="canonical" href="https://patrykbobrowski.pl/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://patrykbobrowski.pl/">
+  <meta property="og:title" content="Patryk Bobrowski — Montaż video, grafika i AI content">
+  <meta property="og:description" content="Portfolio: montaż shortów, reelsów, grafiki i proste kreacje AI dla social media.">
+  <meta property="og:image" content="https://patrykbobrowski.pl/sigmasior.jpg">
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" href="favi.png">
+  <link rel="apple-touch-icon" href="favi.png">
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Consent Mode v2 — default deny before loading GA -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('consent','default',{
+      ad_storage:'denied',
+      analytics_storage:'denied',
+      ad_user_data:'denied',
+      ad_personalization:'denied',
+      wait_for_update:500
+    });
+  </script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css?v=10">
+
+  <!-- Deferred script -->
+  <script src="script.js?v=10" defer></script>
+</head>
+<body>
+
+<!-- ══ NAVIGATION ══════════════════════════════════════════════ -->
+<header>
+  <nav class="nav" aria-label="Nawigacja główna">
+    <div class="container nav-inner">
+
+      <a href="#start" class="nav-logo" aria-label="Patryk Bobrowski — strona główna">
+        Patryk Bobrowski<span style="color: var(--accent); font-weight: 700;">.</span>
+      </a>
+
+      <!-- Desktop links -->
+      <ul class="nav-links" role="list">
+        <li><a href="#start"    class="nav-link">Start</a></li>
+        <li><a href="#o-mnie"   class="nav-link">O mnie</a></li>
+        <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+        <li><a href="#proces"   class="nav-link">Proces</a></li>
+        <li><a href="#kontakt"  class="nav-link">Kontakt</a></li>
+      </ul>
+
+      <a href="#kontakt" class="btn btn-primary nav-cta" style="font-size:0.85rem;padding:0.6em 1.2em;">
+        Napisz do mnie
+      </a>
+
+      <!-- Mobile hamburger -->
+      <button class="nav-toggle" aria-label="Otwórz menu" aria-expanded="false" aria-controls="nav-mobile">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <nav id="nav-mobile" class="nav-mobile" aria-label="Menu mobilne">
+    <ul role="list" style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:1.5rem;">
+      <li><a href="#start"     class="nav-link">Start</a></li>
+      <li><a href="#o-mnie"    class="nav-link">O mnie</a></li>
+      <li><a href="#portfolio"  class="nav-link">Portfolio</a></li>
+      <li><a href="#proces"    class="nav-link">Proces</a></li>
+      <li><a href="#kontakt"   class="nav-link">Kontakt</a></li>
+    </ul>
+    <a href="#kontakt" class="btn btn-primary" style="margin-top:1rem;">Napisz do mnie</a>
+  </nav>
+</header>
+
+<!-- ══ HERO ════════════════════════════════════════════════════ -->
+<main>
+<section id="hero" class="hero">
+  <!-- Premium Background Media -->
+  <div class="hero-bg-media" aria-hidden="true">
+
+    <div class="hero-bg-overlay"></div>
+  </div>
+
+  <div class="container hero-inner">
+
+    <!-- Left: copy -->
+    <div class="hero-text">
+      <p class="hero-eyebrow reveal-up">Video · Grafika · AI content</p>
+
+      <h1 class="hero-h1 reveal-up" style="--reveal-delay: 100ms;">
+        Tworzę video i&nbsp;grafiki,<br>
+        które wyglądają nowocześnie<br>
+        i&nbsp;<em>przyciągają uwagę</em>.
+      </h1>
+
+      <p class="hero-sub reveal-up" style="--reveal-delay: 200ms;">
+        Montaż krótkich form (Shorts, Reels), kreacje wizualne pod&nbsp;social media 
+        oraz wykorzystanie narzędzi AI i automatyzacji.
+      </p>
+
+      <div class="hero-cta reveal-up" style="--reveal-delay: 300ms;">
+        <a href="#portfolio" class="btn btn-primary">Zobacz portfolio</a>
+        <a href="#kontakt"   class="btn btn-ghost">Napisz do mnie</a>
+      </div>
+
+      <div class="hero-micro reveal-up" style="--reveal-delay: 400ms;" aria-hidden="true">
+        <span class="hero-tag">Montaż video</span>
+        <span class="hero-tag">Grafika</span>
+        <span class="hero-tag">AI workflow</span>
+        <span class="hero-tag">Social content</span>
+      </div>
+    </div>
+
+    <!-- Right: showreel card -->
+    <div class="hero-card reveal-up" style="--reveal-delay: 250ms;" aria-label="Showreel">
+      <div class="hero-card-inner">
+        <video
+          src="videos/MAIN.mp4"
+          class="hero-poster"
+          autoplay
+          loop
+          muted
+          playsinline
+          controls
+          preload="metadata"
+        ></video>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Showreel modal -->
+<div class="video-modal" id="showreel-modal" role="dialog" aria-modal="true" aria-label="Showreel">
+  <div class="video-modal-inner">
+    <button class="video-modal-close" id="showreel-close" aria-label="Zamknij">&#x2715;</button>
+      <video
+        id="showreel-video"
+        src="videos/MAIN.mp4"
+      preload="metadata"
+      controls
+      playsinline
+      style="aspect-ratio:16/9;width:100%;"
+    ></video>
+  </div>
+</div>
+
+<!-- ══ O MNIE ══════════════════════════════════════════════════ -->
+<section class="about" id="o-mnie" aria-label="O mnie">
+  <div class="section-bg-media" aria-hidden="true">
+    <video
+      class="section-bg-video"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      poster="assets/background/hero-bg-fallback.png"
+    >
+      <source src="assets/background/hero-bg-loop.mp4" type="video/mp4">
+    </video>
+    <div class="section-bg-overlay"></div>
+  </div>
+  <div class="container">
+
+    <div class="about-inner">
+
+      <!-- Left: Avatar -->
+      <div class="about-photo-wrap reveal-scale">
+        <div class="avatar-glow"></div>
+        <div class="avatar-frame">
+          <img
+            src="sigmasior.jpg"
+            alt="Patryk Bobrowski"
+            class="about-avatar"
+            loading="lazy"
+            width="400"
+            height="400"
+          >
+        </div>
+      </div>
+
+      <!-- Right: Text + Cards -->
+      <div class="about-content">
+        <div class="reveal-up">
+          <p class="section-label" aria-hidden="true">O mnie</p>
+          <h2 class="section-title">Cześć, jestem Patryk.</h2>
+
+          <div class="about-bio">
+            <p>
+              Łączę montaż video, grafikę komputerową i narzędzia AI,
+              żeby tworzyć treści szybciej, czytelniej i bardziej profesjonalnie.
+              Najbliżej mi do krótkich form: Shorts, Reels, TikTok, prostych
+              kreacji promocyjnych oraz wizualnych projektów pod internet.
+            </p>
+            <p>
+              Pracuję praktycznie: najpierw rozumiem cel materiału, potem buduję
+              rytm, obraz i komunikat tak, żeby treść dało się łatwo obejrzeć,
+              zapamiętać i opublikować.
+            </p>
+          </div>
+        </div>
+
+        <div class="skills-grid">
+          
+          <div class="skill-card premium-card reveal-up" style="--reveal-delay: 100ms;">
+            <div class="skill-icon-wrap" aria-hidden="true">
+              <img class="skill-icon" src="assets/icons/video-edition.png" alt="Montaż video icon" width="64" height="64" loading="lazy">
+            </div>
+            <h3 class="skill-name">Montaż video</h3>
+            <div class="skill-desc">
+              Shorts, Reels, TikTok, YouTube — rytm, cięcia, napisy, korekcja i eksport pod social media.
+            </div>
+          </div>
+
+          <div class="skill-card premium-card reveal-up" style="--reveal-delay: 200ms;">
+            <div class="skill-icon-wrap" aria-hidden="true">
+              <img class="skill-icon" src="assets/icons/graphic-design.png" alt="Grafika icon" width="64" height="64" loading="lazy">
+            </div>
+            <h3 class="skill-name">Grafika</h3>
+            <div class="skill-desc">
+              Kreacje do internetu, miniatury, proste layouty, kompozycja i praca z materiałami wizualnymi.
+            </div>
+          </div>
+
+          <div class="skill-card premium-card reveal-up" style="--reveal-delay: 300ms;">
+            <div class="skill-icon-wrap" aria-hidden="true">
+              <img class="skill-icon" src="assets/icons/ai-workflow.png" alt="AI workflow icon" width="64" height="64" loading="lazy">
+            </div>
+            <h3 class="skill-name">AI workflow</h3>
+            <div class="skill-desc">
+              Automatyzacja, szybkie prototypowanie, wsparcie AI przy tworzeniu contentu.
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PORTFOLIO ═══════════════════════════════════════════════ -->
+<section class="portfolio" id="portfolio" aria-label="Portfolio">
+  <div class="container">
+    <div class="portfolio-header reveal" style="text-align:center;max-width:640px;margin:0 auto var(--s-xl);">
+      <p class="section-label" aria-hidden="true">Portfolio</p>
+      <h2 class="section-title">Wybrane realizacje</h2>
+      <p class="section-sub" style="margin:0 auto;">
+        Krótkie formy video, kreacje graficzne i projekty AI — każdy materiał
+        tworzony z myślą o konkretnym celu i odbiorcy.
+      </p>
+    </div>
+
+    <!-- The container for our 3D custom showcase -->
+    <div class="premium-showcase" id="portfolio-showcase">
+      <!-- Dynamic Background Video -->
+      <video id="showcase-bg-video" autoplay loop muted playsinline class="showcase-bg-video"></video>
+      <div class="showcase-bg-overlay"></div>
+      <div class="showcase-stage">
+      
+      <!-- Track holding all video cards -->
+      <div class="showcase-track" id="showcase-track">
+        <!-- Injected by JS -->
+      </div>
+      
+      <!-- Controls -->
+      <div class="showcase-controls reveal-up" style="--reveal-delay: 200ms;">
+        <button class="showcase-btn" id="showcase-prev" aria-label="Poprzedni film">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <div class="showcase-counter" id="showcase-counter">01 / 18</div>
+        <button class="showcase-btn showcase-sound" id="showcase-sound" aria-label="Włącz dźwięk" aria-pressed="false">
+          <svg class="sound-icon sound-muted" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M18 9l3 3m0-3l-3 3"/></svg>
+          <svg class="sound-icon sound-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17 9a4 4 0 010 6m2.5-8.5a7 7 0 010 11"/></svg>
+          <span aria-hidden="true">Muted</span>
+        </button>
+        <button class="showcase-btn" id="showcase-next" aria-label="Następny film">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>
+      </div>
+      <div class="showcase-dots" id="showcase-dots" aria-label="Wybór filmu"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROCES ══════════════════════════════════════════════════ -->
+<section class="process process-premium" id="proces" aria-label="Proces pracy">
+  <div class="container">
+
+    <div class="process-heading reveal" style="text-align:center;max-width:540px;margin:0 auto var(--s-xl);">
+      <p class="section-label" aria-hidden="true">Jak pracuję</p>
+      <h2 class="section-title">Proces w 4 krokach</h2>
+      <p class="section-sub" style="margin:0 auto;">
+        Proste, konkretne etapy — bez zbędnych formalności.
+      </p>
+    </div>
+
+    <div class="process-module" id="process-module">
+      <div class="process-bg-glow" aria-hidden="true"></div>
+      <div class="process-bg-orb process-bg-orb-a" aria-hidden="true"></div>
+      <div class="process-bg-orb process-bg-orb-b" aria-hidden="true"></div>
+      <div class="process-status" aria-hidden="true">01 / 04</div>
+      
+      <!-- Track and Progress Fill -->
+      <div class="process-track" aria-hidden="true">
+        <div class="process-fill" id="process-fill"></div>
+      </div>
+      
+      <!-- Process Steps Container -->
+      <div class="process-steps">
+        
+        <div class="process-step-premium" data-step="1">
+          <div class="process-node"></div>
+          <div class="process-content">
+            <div class="process-num">01</div>
+            <h3 class="process-name">Brief</h3>
+            <p class="process-desc">Ustalam cel, odbiorcę i format. Co ma powiedzieć materiał i do kogo.</p>
+          </div>
+        </div>
+        
+        <div class="process-step-premium" data-step="2">
+          <div class="process-node"></div>
+          <div class="process-content">
+            <div class="process-num">02</div>
+            <h3 class="process-name">Projekt</h3>
+            <p class="process-desc">Tworzę pierwszą wersję materiału lub layoutu. Rytm, obraz, komunikat.</p>
+          </div>
+        </div>
+        
+        <div class="process-step-premium" data-step="3">
+          <div class="process-node"></div>
+          <div class="process-content">
+            <div class="process-num">03</div>
+            <h3 class="process-name">Poprawki</h3>
+            <p class="process-desc">Dopracowuję rytm, tekst, kadry i szczegóły. Tyle rund, ile potrzeba.</p>
+          </div>
+        </div>
+        
+        <div class="process-step-premium" data-step="4">
+          <div class="process-node"></div>
+          <div class="process-content">
+            <div class="process-num">04</div>
+            <h3 class="process-name process-name-finish">Eksport</h3>
+            <p class="process-desc">Przygotowuję finalne pliki gotowe do publikacji w odpowiednich formatach.</p>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ KONTAKT ══════════════════════════════════════════════════ -->
+<section id="kontakt" aria-label="Kontakt">
+  <div class="container">
+
+    <div class="reveal" style="margin-bottom:var(--s-xl);">
+      <p class="section-label" aria-hidden="true">Kontakt</p>
+      <h2 class="section-title">Masz projekt? Napisz.</h2>
+      <p class="section-sub">
+        Masz materiał do zmontowania albo pomysł na prostą kreację?
+        Napisz — sprawdzimy, co można z tego zrobić.
+      </p>
+    </div>
+
+    <div class="contact-inner reveal">
+
+      <!-- Info -->
+      <div class="contact-info">
+
+        <p class="contact-intro">
+          Najszybciej odpowiadam przez e-mail lub Instagram.
+          Formularz też działa — odpisuję w ciągu 24 godzin.
+        </p>
+
+        <a href="mailto:kontakt@patrykbobrowski.pl" class="contact-item" style="text-decoration:none;">
+          <span class="contact-item-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          </span>
+          <div>
+            <div class="contact-item-label">E-mail</div>
+            <div class="contact-item-value">kontakt@patrykbobrowski.pl</div>
+          </div>
+        </a>
+
+        <a href="https://www.instagram.com/patrykbobrowski" target="_blank" rel="noopener noreferrer" class="contact-item" style="text-decoration:none;">
+          <span class="contact-item-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+          </span>
+          <div>
+            <div class="contact-item-label">Instagram</div>
+            <div class="contact-item-value">@patrykbobrowski</div>
+          </div>
+        </a>
+
+        <a href="https://www.youtube.com/@patrykbobrowski" target="_blank" rel="noopener noreferrer" class="contact-item" style="text-decoration:none;">
+          <span class="contact-item-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+          </span>
+          <div>
+            <div class="contact-item-label">YouTube</div>
+            <div class="contact-item-value">@patrykbobrowski</div>
+          </div>
+        </a>
+
+        <div class="contact-legal">
+          <a href="privacy.html">Polityka prywatności</a>
+          <a href="terms.html">Regulamin</a>
+          <a href="cookies.html">Cookies</a>
+          <a href="cookie-settings.html">Ustawienia cookies</a>
+        </div>
+
+      </div>
+
+      <!-- Form -->
+      <div class="contact-form glass reveal">
+        <form
+          id="contact-form"
+          data-endpoint="https://formspree.io/f/YOUR_FORM_ID"
+          novalidate
+        >
+          <!-- Honeypot (anti-spam) -->
+          <input type="text" name="_honey" style="display:none;" tabindex="-1" autocomplete="off">
+
+          <div class="form-group">
+            <label class="form-label" for="contact-name">Imię i nazwisko <span aria-hidden="true">*</span></label>
+            <input
+              class="form-input"
+              type="text"
+              id="contact-name"
+              name="name"
+              required
+              autocomplete="name"
+              placeholder="Jan Kowalski"
+            >
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="contact-email">E-mail <span aria-hidden="true">*</span></label>
+            <input
+              class="form-input"
+              type="email"
+              id="contact-email"
+              name="email"
+              required
+              autocomplete="email"
+              placeholder="jan@przyklad.pl"
+            >
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="contact-message">Wiadomość <span aria-hidden="true">*</span></label>
+            <textarea
+              class="form-textarea"
+              id="contact-message"
+              name="message"
+              required
+              placeholder="Opisz krótko, co chcesz zrealizować…"
+            ></textarea>
+          </div>
+
+          <div class="form-check">
+            <label for="privacy-consent" class="form-check-label">
+              <input type="checkbox" id="privacy-consent" name="privacy" required class="sr-only">
+              <span class="custom-checkbox" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </span>
+              <span>
+                Akceptuję <a href="privacy.html">politykę prywatności</a>
+                i zgadzam się na kontakt.
+              </span>
+            </label>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">
+            Wyślij wiadomość
+          </button>
+
+          <div class="form-status" id="form-status" role="alert" aria-live="polite"></div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ══ FOOTER ══════════════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="container footer-inner">
+    <p class="footer-copy">
+      &copy; <span id="footer-year"></span> Patryk Bobrowski. Wszelkie prawa zastrzeżone.
+    </p>
+    <nav class="footer-links" aria-label="Linki prawne">
+      <a href="privacy.html">Prywatność</a>
+      <a href="terms.html">Regulamin</a>
+      <a href="cookies.html">Cookies</a>
+    </nav>
+  </div>
+</footer>
+
+<!-- ══ COOKIE BANNER ═══════════════════════════════════════════ -->
+<div class="cookie-banner" id="cookie-banner" role="region" aria-label="Zgoda na cookies">
+  <p>
+    Ta strona używa plików cookies do analizy ruchu.
+    Szczegóły w <a href="cookies.html">polityce cookies</a>.
+  </p>
+  <div class="cookie-actions">
+    <button class="cookie-btn-accept" id="cookie-accept">Akceptuj</button>
+    <a class="cookie-btn-settings" id="cookie-settings-link" href="cookie-settings.html">Ustawienia</a>
+  </div>
+</div>
+
+<!-- Footer year -->
+<script>
+  (function(){
+    var el = document.getElementById('footer-year');
+    if(el) el.textContent = new Date().getFullYear();
+  })();
+</script>
+
+</body>
+</html>
