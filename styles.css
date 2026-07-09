@@ -903,6 +903,19 @@ section {
   align-items: center;
 }
 
+@media (max-width: 767px) {
+  .section-bg-video {
+    width: 100% !important;
+    height: 100% !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    object-fit: cover !important;
+    transform: scale(1.5) !important;
+    opacity: 0.85 !important;
+  }
+}
+
 @media (min-width: 900px) {
   .about-inner {
     grid-template-columns: minmax(300px, 3.5fr) 6.5fr;
@@ -1886,15 +1899,63 @@ section {
 }
 
 @media (max-width: 767px) {
-  .proc-cards { grid-template-columns: 1fr; gap: 1rem; }
-  /* Show horizontal timeline on mobile just like desktop */
-  .proc-timeline-wrapper { 
-    display: block; 
-    margin-bottom: 2rem; 
-    padding-top: 5rem; /* Room for 48h badge */
+  .hero-micro {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    gap: 12px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-bottom: 4px; /* for safe scroll area */
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
   }
+  .hero-micro::-webkit-scrollbar {
+    display: none;
+  }
+  .hero-tag, .hero-micro span.hero-tag {
+    display: flex !important;
+    width: auto !important;
+    white-space: nowrap !important;
+    flex: 0 0 auto !important; /* prevent shrinking */
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+    padding: 0.6rem 1.2rem !important;
+    font-size: 0.8rem !important;
+  }
+
+  .proc-cards { grid-template-columns: 1fr; gap: 1rem; }
+  
+  .proc-module {
+    padding-top: 10.5rem !important;
+  }
+
+  .proc-status {
+    position: absolute !important;
+    top: 6.5rem !important;
+    left: 50% !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: translateX(-50%) !important;
+    margin: 0 !important;
+  }
+
+  .proc-timeline-wrapper { 
+    display: block !important;
+    margin-bottom: 2rem !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
   .proc-badge {
-    transform: scale(0.65); /* Starting scale, GSAP handles the rest, but we can make it a bit smaller on mobile if needed. Actually GSAP sets scale: 0.7 initially */
+    top: -9.5rem !important;
+    left: 50% !important;
+  }
+
+  .proc-track {
+    width: auto;
+    margin: 0 24px;
   }
 }
 
