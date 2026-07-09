@@ -49,6 +49,7 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&display=swap" rel="stylesheet">
 
   <!-- Consent Mode v2 — default deny before loading GA -->
   <script>
@@ -64,10 +65,11 @@
   </script>
 
   <!-- Styles -->
-  <link rel="stylesheet" href="styles.css?v=10">
+  <link rel="stylesheet" href="styles.css?v=37">
 
   <!-- Deferred script -->
-  <script src="script.js?v=10" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="script.js?v=37" defer></script>
 </head>
 <body>
 
@@ -77,7 +79,8 @@
     <div class="container nav-inner">
 
       <a href="#start" class="nav-logo" aria-label="Patryk Bobrowski — strona główna">
-        Patryk Bobrowski<span style="color: var(--accent); font-weight: 700;">.</span>
+        <img src="assets/logo/logo.png" alt="" style="height: 24px; width: auto; object-fit: contain;">
+        <span>Patryk Bobrowski<span class="nav-logo-dot"></span></span>
       </a>
 
       <!-- Desktop links -->
@@ -132,14 +135,13 @@
       <p class="hero-eyebrow reveal-up">Video · Grafika · AI content</p>
 
       <h1 class="hero-h1 reveal-up" style="--reveal-delay: 100ms;">
-        Tworzę video i&nbsp;grafiki,<br>
-        które wyglądają nowocześnie<br>
-        i&nbsp;<em>przyciągają uwagę</em>.
+        Tworzę video i&nbsp;grafiki,
+        które wyglądają nowocześnie
+        i <br class="mobile-break"><em>przyciągają uwagę</em>.
       </h1>
 
       <p class="hero-sub reveal-up" style="--reveal-delay: 200ms;">
-        Montaż krótkich form (Shorts, Reels), kreacje wizualne pod&nbsp;social media 
-        oraz wykorzystanie narzędzi AI i automatyzacji.
+        Montaż krótkich form, proste kreacje wizualne i AI workflow dla treści, które mają być czytelne, estetyczne i gotowe do publikacji.
       </p>
 
       <div class="hero-cta reveal-up" style="--reveal-delay: 300ms;">
@@ -198,7 +200,7 @@
       muted
       loop
       playsinline
-      preload="metadata"
+      preload="auto"
       poster="assets/background/hero-bg-fallback.png"
     >
       <source src="assets/background/hero-bg-loop.mp4" type="video/mp4">
@@ -232,15 +234,7 @@
 
           <div class="about-bio">
             <p>
-              Łączę montaż video, grafikę komputerową i narzędzia AI,
-              żeby tworzyć treści szybciej, czytelniej i bardziej profesjonalnie.
-              Najbliżej mi do krótkich form: Shorts, Reels, TikTok, prostych
-              kreacji promocyjnych oraz wizualnych projektów pod internet.
-            </p>
-            <p>
-              Pracuję praktycznie: najpierw rozumiem cel materiału, potem buduję
-              rytm, obraz i komunikat tak, żeby treść dało się łatwo obejrzeć,
-              zapamiętać i opublikować.
+              Łączę montaż video, grafikę i narzędzia AI, żeby szybciej zamieniać pomysł w gotowy materiał. Pracuję praktycznie: najpierw ustalam cel i format, potem buduję rytm, obraz i komunikat tak, żeby treść była łatwa do obejrzenia, zapamiętania i opublikowania.
             </p>
           </div>
         </div>
@@ -253,7 +247,7 @@
             </div>
             <h3 class="skill-name">Montaż video</h3>
             <div class="skill-desc">
-              Shorts, Reels, TikTok, YouTube — rytm, cięcia, napisy, korekcja i eksport pod social media.
+              Montaż krótkich form oraz pełnometrażowych filmów do social mediów: rytm, cięcia, napisy, korekcja.
             </div>
           </div>
 
@@ -263,7 +257,7 @@
             </div>
             <h3 class="skill-name">Grafika</h3>
             <div class="skill-desc">
-              Kreacje do internetu, miniatury, proste layouty, kompozycja i praca z materiałami wizualnymi.
+              Miniatury, proste layouty, kompozycje i materiały wizualne dopasowane do internetu.
             </div>
           </div>
 
@@ -273,7 +267,7 @@
             </div>
             <h3 class="skill-name">AI workflow</h3>
             <div class="skill-desc">
-              Automatyzacja, szybkie prototypowanie, wsparcie AI przy tworzeniu contentu.
+              Pomysły, research, scenariusze i automatyzacje, które przyspieszają przygotowanie contentu.
             </div>
           </div>
 
@@ -290,8 +284,7 @@
       <p class="section-label" aria-hidden="true">Portfolio</p>
       <h2 class="section-title">Wybrane realizacje</h2>
       <p class="section-sub" style="margin:0 auto;">
-        Krótkie formy video, kreacje graficzne i projekty AI — każdy materiał
-        tworzony z myślą o konkretnym celu i odbiorcy.
+        Krótkie formy video, kreacje graficzne i projekty AI, materiały tworzone z myślą o konkretnym celu, formacie i odbiorcy.
       </p>
     </div>
 
@@ -306,7 +299,8 @@
       <div class="showcase-track" id="showcase-track">
         <!-- Injected by JS -->
       </div>
-      
+      </div>
+
       <!-- Controls -->
       <div class="showcase-controls reveal-up" style="--reveal-delay: 200ms;">
         <button class="showcase-btn" id="showcase-prev" aria-label="Poprzedni film">
@@ -322,78 +316,89 @@
           <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
         </button>
       </div>
-      </div>
       <div class="showcase-dots" id="showcase-dots" aria-label="Wybór filmu"></div>
     </div>
   </div>
 </section>
 
 <!-- ══ PROCES ══════════════════════════════════════════════════ -->
-<section class="process process-premium" id="proces" aria-label="Proces pracy">
+<section class="process-section" id="proces" aria-label="Proces pracy">
   <div class="container">
 
-    <div class="process-heading reveal" style="text-align:center;max-width:540px;margin:0 auto var(--s-xl);">
-      <p class="section-label" aria-hidden="true">Jak pracuję</p>
-      <h2 class="section-title">Proces w 4 krokach</h2>
-      <p class="section-sub" style="margin:0 auto;">
-        Proste, konkretne etapy — bez zbędnych formalności.
+    <div class="process-heading" style="text-align:center;max-width:540px;margin:0 auto var(--s-xl);">
+      <p class="section-label reveal-up" aria-hidden="true">Jak pracuję</p>
+      <h2 class="section-title reveal-blur" style="--reveal-delay: 100ms;">Proces w 4 krokach</h2>
+      <p class="section-sub reveal-up" style="margin:0 auto; --reveal-delay: 200ms;">
+        Prosto, konkretnie i bez chaosu — od pomysłu do gotowego materiału.
       </p>
     </div>
 
-    <div class="process-module" id="process-module">
-      <div class="process-bg-glow" aria-hidden="true"></div>
-      <div class="process-bg-orb process-bg-orb-a" aria-hidden="true"></div>
-      <div class="process-bg-orb process-bg-orb-b" aria-hidden="true"></div>
-      <div class="process-status" aria-hidden="true">01 / 04</div>
-      
-      <!-- Track and Progress Fill -->
-      <div class="process-track" aria-hidden="true">
-        <div class="process-fill" id="process-fill"></div>
+    <div class="proc-module reveal-blur" id="proc-module" style="--reveal-delay: 300ms;">
+
+      <!-- Top-right counter -->
+      <div class="proc-status" id="proc-status" aria-hidden="true">00 / 04</div>
+
+      <!-- Timeline row: track + badge above it -->
+      <div class="proc-timeline-wrapper" aria-hidden="true">
+
+        <!-- 48h badge — centered above the midpoint -->
+        <div class="proc-badge" id="proc-badge">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline id="proc-clock-hand" points="12 6 12 12 16 14"></polyline>
+          </svg>
+          <span id="proc-badge-text" style="min-width: 3ch; display: inline-block; text-align: left;">0h</span>
+        </div>
+
+        <!-- Track background -->
+        <div class="proc-track" id="proc-track">
+          <!-- Active fill bar -->
+          <div class="proc-fill" id="proc-fill"></div>
+
+          <!-- 4 nodes on the track -->
+          <div class="proc-node" id="proc-node-1" style="left:0%"    data-card="1"></div>
+          <div class="proc-node" id="proc-node-2" style="left:33.333%" data-card="2"></div>
+          <div class="proc-node" id="proc-node-3" style="left:66.666%" data-card="3"></div>
+          <div class="proc-node" id="proc-node-4" style="left:100%"   data-card="4"></div>
+        </div>
+
       </div>
-      
-      <!-- Process Steps Container -->
-      <div class="process-steps">
-        
-        <div class="process-step-premium" data-step="1">
-          <div class="process-node"></div>
-          <div class="process-content">
-            <div class="process-num">01</div>
-            <h3 class="process-name">Brief</h3>
-            <p class="process-desc">Ustalam cel, odbiorcę i format. Co ma powiedzieć materiał i do kogo.</p>
-          </div>
+
+      <!-- Cards -->
+      <div class="proc-cards">
+
+        <div class="proc-card" id="proc-card-1" data-step="1">
+          <div class="proc-num">01</div>
+          <h3 class="proc-name">Brief</h3>
+          <p class="proc-desc">Ustalam cel, format i odbiorcę. Dzięki temu wiadomo, co materiał ma powiedzieć i gdzie będzie publikowany.</p>
         </div>
-        
-        <div class="process-step-premium" data-step="2">
-          <div class="process-node"></div>
-          <div class="process-content">
-            <div class="process-num">02</div>
-            <h3 class="process-name">Projekt</h3>
-            <p class="process-desc">Tworzę pierwszą wersję materiału lub layoutu. Rytm, obraz, komunikat.</p>
-          </div>
+
+        <div class="proc-card" id="proc-card-2" data-step="2">
+          <div class="proc-num">02</div>
+          <h3 class="proc-name">Projekt</h3>
+          <p class="proc-desc">Buduję pierwszą wersję: rytm, układ, obraz, tekst i główny komunikat.</p>
         </div>
-        
-        <div class="process-step-premium" data-step="3">
-          <div class="process-node"></div>
-          <div class="process-content">
-            <div class="process-num">03</div>
-            <h3 class="process-name">Poprawki</h3>
-            <p class="process-desc">Dopracowuję rytm, tekst, kadry i szczegóły. Tyle rund, ile potrzeba.</p>
-          </div>
+
+        <div class="proc-card" id="proc-card-3" data-step="3">
+          <div class="proc-num">03</div>
+          <h3 class="proc-name">Poprawki</h3>
+          <p class="proc-desc">Dopracowuję szczegóły: tempo, kadry, napisy, kolor i czytelność.</p>
         </div>
-        
-        <div class="process-step-premium" data-step="4">
-          <div class="process-node"></div>
-          <div class="process-content">
-            <div class="process-num">04</div>
-            <h3 class="process-name process-name-finish">Eksport</h3>
-            <p class="process-desc">Przygotowuję finalne pliki gotowe do publikacji w odpowiednich formatach.</p>
-          </div>
+
+        <div class="proc-card" id="proc-card-4" data-step="4">
+          <div class="proc-num">04</div>
+          <h3 class="proc-name">Eksport</h3>
+          <p class="proc-desc">Przygotowuję gotowe pliki w odpowiednich formatach, gotowe dla Ciebie!</p>
         </div>
-        
+
       </div>
     </div>
+
   </div>
 </section>
+
 
 <!-- ══ KONTAKT ══════════════════════════════════════════════════ -->
 <section id="kontakt" aria-label="Kontakt">
@@ -401,10 +406,10 @@
 
     <div class="reveal" style="margin-bottom:var(--s-xl);">
       <p class="section-label" aria-hidden="true">Kontakt</p>
-      <h2 class="section-title">Masz projekt? Napisz.</h2>
+      <h2 class="section-title">Zróbmy coś dobrego.</h2>
       <p class="section-sub">
-        Masz materiał do zmontowania albo pomysł na prostą kreację?
-        Napisz — sprawdzimy, co można z tego zrobić.
+        Szukasz kogoś do montażu albo potrzebujesz świeżych kreacji graficznych?
+        Napisz i opowiedz mi o swoim projekcie.
       </p>
     </div>
 
@@ -418,33 +423,33 @@
           Formularz też działa — odpisuję w ciągu 24 godzin.
         </p>
 
-        <a href="mailto:kontakt@patrykbobrowski.pl" class="contact-item" style="text-decoration:none;">
+        <a href="mailto:1moreiscrev@gmail.com" class="contact-item" style="text-decoration:none;">
           <span class="contact-item-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
           </span>
           <div>
             <div class="contact-item-label">E-mail</div>
-            <div class="contact-item-value">kontakt@patrykbobrowski.pl</div>
+            <div class="contact-item-value">1moreiscrev@gmail.com</div>
           </div>
         </a>
 
-        <a href="https://www.instagram.com/patrykbobrowski" target="_blank" rel="noopener noreferrer" class="contact-item" style="text-decoration:none;">
+        <a href="https://www.instagram.com/iscreeev/" target="_blank" rel="noopener noreferrer" class="contact-item" style="text-decoration:none;">
           <span class="contact-item-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
           </span>
           <div>
             <div class="contact-item-label">Instagram</div>
-            <div class="contact-item-value">@patrykbobrowski</div>
+            <div class="contact-item-value">@iscreeev</div>
           </div>
         </a>
 
-        <a href="https://www.youtube.com/@patrykbobrowski" target="_blank" rel="noopener noreferrer" class="contact-item" style="text-decoration:none;">
+        <a href="https://www.facebook.com/profile.php?id=100007837713621" target="_blank" rel="noopener noreferrer" class="contact-item" style="text-decoration:none;">
           <span class="contact-item-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
           </span>
           <div>
-            <div class="contact-item-label">YouTube</div>
-            <div class="contact-item-value">@patrykbobrowski</div>
+            <div class="contact-item-label">Facebook</div>
+            <div class="contact-item-value">Patryk Bobrowski</div>
           </div>
         </a>
 
@@ -460,9 +465,9 @@
       <!-- Form -->
       <div class="contact-form glass reveal">
         <form
-          id="contact-form"
-          data-endpoint="https://formspree.io/f/YOUR_FORM_ID"
-          novalidate
+          id="contactForm"
+          action="https://formspree.io/f/mwpqyqzn"
+          method="POST"
         >
           <!-- Honeypot (anti-spam) -->
           <input type="text" name="_honey" style="display:none;" tabindex="-1" autocomplete="off">

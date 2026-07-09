@@ -24,157 +24,184 @@
     gtag('config', 'G-89YQWBDKB5', { anonymize_ip: true });
   </script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-89YQWBDKB5"></script>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Polityka prywatności · Patryk Bobrowski</title>
-  <link rel="stylesheet" href="styles.css?v=pages-2025-08-08" />
-  <!-- Google Consent Mode v2: default deny -->
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){ dataLayer.push(arguments); }
-    gtag('consent', 'default', {
-      ad_storage: 'denied',
-      analytics_storage: 'denied',
-      ad_user_data: 'denied',
-      ad_personalization: 'denied',
-      wait_for_update: 500
-    });
-  </script>
-  <!-- Google Analytics (gtag.js) - gated by cookie consent -->
-  <script>
-    (function(){
-      function loadGA(){
-        if (window.__gaLoaded) return;
-        window.__gaLoaded = true;
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){ window.dataLayer.push(arguments); }
-        window.gtag = gtag;
-        try {
-          var saved = JSON.parse(localStorage.getItem('cookie-consent-v1') || '{}');
-          var analyticsOn = !!saved.analytics;
-          var marketingOn = !!saved.marketing;
-          gtag('consent', 'update', {
-            analytics_storage: analyticsOn ? 'granted' : 'denied',
-            ad_storage: marketingOn ? 'granted' : 'denied',
-            ad_user_data: marketingOn ? 'granted' : 'denied',
-            ad_personalization: marketingOn ? 'granted' : 'denied'
-          });
-        } catch (_e) {}
-        var s = document.createElement('script');
-        s.async = true;
-        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-89YQWBDKB5';
-        document.head.appendChild(s);
-        gtag('js', new Date());
-        gtag('config', 'G-89YQWBDKB5', { anonymize_ip: true });
-      }
-      window.loadGA = loadGA;
-      try {
-        var consent = JSON.parse(localStorage.getItem('cookie-consent-v1') || '{}');
-        gtag('consent', 'update', {
-          analytics_storage: consent.analytics ? 'granted' : 'denied',
-          ad_storage: consent.marketing ? 'granted' : 'denied',
-          ad_user_data: consent.marketing ? 'granted' : 'denied',
-          ad_personalization: consent.marketing ? 'granted' : 'denied'
-        });
-        if (consent.analytics) loadGA();
-      } catch (e) {}
-      window.addEventListener('storage', function(event){
-        if (event.key === 'cookie-consent-v1') {
-          try {
-            var state = JSON.parse(event.newValue || '{}');
-            gtag('consent', 'update', {
-              analytics_storage: state.analytics ? 'granted' : 'denied',
-              ad_storage: state.marketing ? 'granted' : 'denied',
-              ad_user_data: state.marketing ? 'granted' : 'denied',
-              ad_personalization: state.marketing ? 'granted' : 'denied'
-            });
-            if (state.analytics) loadGA();
-          } catch (_e) {}
-        }
-      });
-    })();
-  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <title>Polityka Prywatności — Patryk Bobrowski</title>
+  <meta name="theme-color" content="#050507">
+  
+  <link rel="icon" type="image/png" href="favi.png">
+  <link rel="apple-touch-icon" href="favi.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link rel="stylesheet" href="styles.css?v=11">
+  <script src="script.js?v=11" defer></script>
 </head>
-<body class="bg-vibrant-glass">
-  <div class="hub-gradient-layer" aria-hidden="true"></div>
-  <nav class="nav-glass">
-    <div class="nav-container">
-      <div class="logo-liquid">
-        <span class="logo-text">Patryk Bobrowski</span>
-        <div class="logo-glow"></div>
-      </div>
-      <ul class="nav-menu">
-        <li><a href="index.html#hero" class="nav-link">Start</a></li>
-        <li><a href="index.html#about" class="nav-link">O mnie</a></li>
+<body>
+
+<header>
+  <nav class="nav" aria-label="Nawigacja główna">
+    <div class="container nav-inner">
+
+      <a href="index.html#hero" class="nav-logo" aria-label="Patryk Bobrowski — strona główna">
+        Patryk Bobrowski<span style="color: var(--accent); font-weight: 700;">.</span>
+      </a>
+
+      <!-- Desktop links -->
+      <ul class="nav-links" role="list">
+        <li><a href="index.html#hero"    class="nav-link">Start</a></li>
+        <li><a href="index.html#about"   class="nav-link">O mnie</a></li>
         <li><a href="index.html#portfolio" class="nav-link">Portfolio</a></li>
-        <li><a href="index.html#contact" class="nav-link">Kontakt</a></li>
+        <li><a href="index.html#process"   class="nav-link">Proces</a></li>
+        <li><a href="index.html#contact"  class="nav-link">Kontakt</a></li>
       </ul>
+
+      <a href="index.html#contact" class="btn btn-primary nav-cta" style="font-size:0.85rem;padding:0.6em 1.2em;">
+        Napisz do mnie
+      </a>
+
+      <!-- Mobile hamburger -->
+      <button class="nav-toggle" aria-label="Otwórz menu" aria-expanded="false" aria-controls="nav-mobile">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
     </div>
   </nav>
 
-  <main class="content-wrapper" style="padding-top:100px;">
-    <section class="section-header container" style="max-width:1100px; margin-top:24px;">
-      <h1 class="section-title">Polityka prywatności</h1>
-    </section>
-    <section class="container" style="max-width:1100px;">
-      <div class="glass-card" style="line-height:1.7; font-size:15px; white-space:pre-wrap;">
-POLITYKA PRYWATNOŚCI
-Ostatnia aktualizacja: 2025-08-08
-1. Administrator danych
-* Administratorem danych osobowych jest Patryk Bobrowski („Administrator”).
-* Kontakt: supertrewi@gmail.com | Marki, Mazowieckie, Polska.
-2. Zakres danych
-* Dane przekazywane świadomie: imię i nazwisko, adres e‑mail, numer telefonu oraz treść wiadomości wysłanych przez formularz lub e‑mail.
-* Dane automatyczne (logi serwera): adres IP, znaczniki czasu, URL odsyłające, identyfikatory urządzeń/przeglądarek, podstawowe dane techniczne.
-* Dane analityczne/cookies – tylko jeśli wyrażona zostanie zgoda (szczegóły w sekcji Cookies).
-3. Cele i podstawy prawne przetwarzania
-* Odpowiedź na zapytania i prowadzenie korespondencji: RODO art.6 ust.1 lit.b.
-* Utrzymywanie bezpieczeństwa i ciągłości działania (logi, ochrona przed nadużyciami): art.6 ust.1 lit.f.
-* Analityka ruchu i ulepszanie serwisu (jeśli włączone narzędzia analityczne): zgoda – art.6 ust.1 lit.a.
-* Marketing własnych usług (np. odpowiedź z ofertą na zapytanie): art.6 ust.1 lit.f.
-4. Odbiorcy danych
-* Podmioty przetwarzające dane na zlecenie Administratora, m.in.: dostawca hostingu, dostawcy poczty, narzędzia formularzy, analityki (jeśli włączone), systemy CDN.
-5. Okres przechowywania
-* Korespondencja i dane z formularza: do 12 miesięcy od zakończenia sprawy lub dłużej, jeśli wynika to z uzasadnionego interesu (np. obrona roszczeń).
-* Logi techniczne: do 12 miesięcy.
-* Dane oparte na zgodzie (np. analityka): do czasu wycofania zgody lub do 26 miesięcy – w zależności od konfiguracji narzędzia.
-6. Prawa osób, których dane dotyczą
-* Prawo dostępu, sprostowania, usunięcia („bycia zapomnianym”), ograniczenia, przenoszenia oraz sprzeciwu wobec przetwarzania opartego na art.6 ust.1 lit.f.
-* Prawo do wycofania zgody w dowolnym momencie bez wpływu na zgodność z prawem przetwarzania sprzed cofnięcia zgody.
-* Prawo wniesienia skargi do Prezesa UODO.
-7. Obowiązek podania danych
-* Podanie danych w formularzu kontaktowym jest dobrowolne, ale niezbędne do obsługi zapytania.
-8. Zautomatyzowane podejmowanie decyzji
-* Dane nie są wykorzystywane do zautomatyzowanego podejmowania decyzji ani profilowania w rozumieniu RODO.
-9. Bezpieczeństwo
-* Administrator stosuje adekwatne środki techniczne i organizacyjne (m.in. HTTPS, ograniczenia dostępu, aktualizacje oprogramowania). Mimo to żaden system nie gwarantuje 100% bezpieczeństwa – prosimy nie przesyłać informacji poufnych przez formularz.
-10. Cookies i podobne technologie
-* Serwis może wykorzystywać pliki cookies oraz podobne technologie (Local Storage, Pixel).
-* Podział: niezbędne (essential) – wymagane do działania strony i bezpieczeństwa; używane bez zgody. Analityczne/marketingowe – używane wyłącznie po uzyskaniu zgody; służą pomiarowi ruchu, poprawie UX i ewentualnym kampaniom.
-* Użytkownik może zarządzać zgodami w banerze cookies oraz w „Ustawieniach cookies”.
-11. Formularz kontaktowy
-* Wysyłając wiadomość, użytkownik potwierdza zapoznanie się z niniejszą Polityką. Pod formularzem zaleca się umieścić checkbox: „Zapoznałem się z Polityką prywatności i akceptuję jej warunki”.
-12. Dzieci
-* Serwis nie jest skierowany do osób poniżej 16 roku życia. Administrator nie zbiera świadomie danych takich osób.
-13. Zmiany Polityki
-* Polityka może być okresowo aktualizowana. Nowa wersja będzie publikowana na stronie /privacy z datą „Ostatnia aktualizacja”.
-14. Kontakt w sprawie danych
-* supertrewi@gmail.com.
-      </div>
-    </section>
-  </main>
+  <!-- Mobile menu -->
+  <nav id="nav-mobile" class="nav-mobile" aria-label="Menu mobilne">
+    <ul role="list" style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:1.5rem;">
+      <li><a href="index.html#hero"     class="nav-link">Start</a></li>
+      <li><a href="index.html#about"    class="nav-link">O mnie</a></li>
+      <li><a href="index.html#portfolio"  class="nav-link">Portfolio</a></li>
+      <li><a href="index.html#process"    class="nav-link">Proces</a></li>
+      <li><a href="index.html#contact"   class="nav-link">Kontakt</a></li>
+    </ul>
+    <a href="index.html#contact" class="btn btn-primary" style="margin-top:1rem;">Napisz do mnie</a>
+  </nav>
+</header>
 
-  <footer class="footer">
-    <div class="container" style="display:flex; gap:16px; flex-wrap:wrap; justify-content:center; align-items:center;">
-      <span class="apple-clean-text" style="opacity:0.9;">© 2025 Patryk Bobrowski. Wszelkie prawa zastrzeżone</span>
-      <span>·</span>
-      <a href="terms.html" class="nav-link" style="text-decoration:underline;">Terms</a>
-      <span>·</span>
-      <a href="privacy.html" class="nav-link" style="text-decoration:underline;">Privacy</a>
-      <span>·</span>
-      <a href="cookie-settings.html" class="nav-link" style="text-decoration:underline;">Ustawienia cookies</a>
+<main>
+  <section style="padding: 180px 0 100px; min-height: 100vh;">
+    <div class="container" style="max-width: 900px;">
+      <div class="reveal" style="margin-bottom: var(--s-lg);">
+        <h1 class="section-title">Polityka prywatności</h1>
+      </div>
+      <div class="glass" style="padding: clamp(1.5rem, 4vw, 3rem); border-radius: var(--radius-lg); line-height: 1.8; color: var(--text-muted);">
+        
+<p style="margin-bottom: 2rem;">Ostatnia aktualizacja: 2025-08-08</p>
+
+<h2 style="color: var(--text); font-size: 1.25rem; margin-top: 2rem; margin-bottom: 1rem;">1. Administrator danych</h2>
+<ul style="list-style: disc; margin-left: 1.5rem; margin-bottom: 1.5rem;">
+  <li>Administratorem danych osobowych jest Patryk Bobrowski („Administrator”).</li>
+  <li>Kontakt: supertrewi@gmail.com | Marki, Mazowieckie, Polska.</li>
+</ul>
+
+<h2 style="color: var(--text); font-size: 1.25rem; margin-top: 2rem; margin-bottom: 1rem;">2. Zakres danych</h2>
+<ul style="list-style: disc; margin-left: 1.5rem; margin-bottom: 1.5rem;">
+  <li>Dane przekazywane świadomie: imię i nazwisko, adres e‑mail, numer telefonu oraz treść wiadomości wysłanych przez formularz lub e‑mail.</li>
+  <li>Dane automatyczne (logi serwera): adres IP, znaczniki czasu, URL odsyłające, identyfikatory urządzeń/przeglądarek, podstawowe dane techniczne.</li>
+  <li>Dane analityczne/cookies – tylko jeśli wyrażona zostanie zgoda (szczegóły w sekcji Cookies).</li>
+</ul>
+
+<h2 style="color: var(--text); font-size: 1.25rem; margin-top: 2rem; margin-bottom: 1rem;">3. Cele i podstawy prawne przetwarzania</h2>
+<ul style="list-style: disc; margin-left: 1.5rem; margin-bottom: 1.5rem;">
+  <li>Odpowiedź na zapytania i prowadzenie korespondencji: RODO art.6 ust.1 lit.b.</li>
+  <li>Utrzymywanie bezpieczeństwa i ciągłości działania (logi, ochrona przed nadużyciami): art.6 ust.1 lit.f.</li>
+  <li>Analityka ruchu i ulepszanie serwisu (jeśli włączone narzędzia analityczne): zgoda – art.6 ust.1 lit.a.</li>
+  <li>Marketing własnych usług (np. odpowiedź z ofertą na zapytanie): art.6 ust.1 lit.f.</li>
+</ul>
+
+<h2 style="color: var(--text); font-size: 1.25rem; margin-top: 2rem; margin-bottom: 1rem;">4. Odbiorcy danych</h2>
+<ul style="list-style: disc; margin-left: 1.5rem; margin-bottom: 1.5rem;">
+  <li>Podmioty przetwarzające dane na zlecenie Administratora, m.in.: dostawca hostingu, dostawcy poczty, narzędzia formularzy, analityki (jeśli włączone), systemy CDN.</li>
+</ul>
+
+<h2 style="color: var(--text); font-size: 1.25rem; margin-top: 2rem; margin-bottom: 1rem;">5. Okres przechowywania</h2>
+<ul style="list-style: disc; margin-left: 1.5rem; margin-bottom: 1.5rem;">
+  <li>Korespondencja i dane z formularza: do 12 miesięcy od zakończenia sprawy lub dłużej, jeśli wynika to z uzasadnionego interesu (np. obrona roszczeń).</li>
+  <li>Logi techniczne: do 12 miesięcy.</li>
+  <li>Dane oparte na zgodzie (np. analityka): do czasu wycofania zgody lub do 26 miesięcy – w zależności od konfiguracji narzędzia.</li>
+</ul>
+
+<h2 style="color: var(--text); font-size: 1.25rem; margin-top: 2rem; margin-bottom: 1rem;">6. Prawa osób, których dane dotyczą</h2>
+<ul style="list-style: disc; margin-left: 1.5rem; margin-bottom: 1.5rem;">
+  <li>Prawo dostępu, sprostowania, usunięcia („bycia zapomnianym”), ograniczenia, przenoszenia oraz sprzeciwu wobec przetwarzania opartego na art.6 ust.1 lit.f.</li>
+  <li>Prawo do wycofania zgody w dowolnym momencie bez wpływu na zgodność z prawem przetwarzania sprzed cofnięcia zgody.</li>
+  <li>Prawo wniesienia skargi do Prezesa UODO.</li>
+</ul>
+
+<h2 style="color: var(--text); font-size: 1.25rem; margin-top: 2rem; margin-bottom: 1rem;">7. Obowiązek podania danych</h2>
+<ul style="list-style: disc; margin-left: 1.5rem; margin-bottom: 1.5rem;">
+  <li>Podanie danych w formularzu kontaktowym jest dobrowolne, ale niezbędne do obsługi zapytania.</li>
+</ul>
+
+<h2 style="color: var(--text); font-size: 1.25rem; margin-top: 2rem; margin-bottom: 1rem;">8. Zautomatyzowane podejmowanie decyzji</h2>
+<ul style="list-style: disc; margin-left: 1.5rem; margin-bottom: 1.5rem;">
+  <li>Dane nie są wykorzystywane do zautomatyzowanego podejmowania decyzji ani profilowania w rozumieniu RODO.</li>
+</ul>
+
+<h2 style="color: var(--text); font-size: 1.25rem; margin-top: 2rem; margin-bottom: 1rem;">9. Bezpieczeństwo</h2>
+<ul style="list-style: disc; margin-left: 1.5rem; margin-bottom: 1.5rem;">
+  <li>Administrator stosuje adekwatne środki techniczne i organizacyjne (m.in. HTTPS, ograniczenia dostępu, aktualizacje oprogramowania). Mimo to żaden system nie gwarantuje 100% bezpieczeństwa – prosimy nie przesyłać informacji poufnych przez formularz.</li>
+</ul>
+
+<h2 style="color: var(--text); font-size: 1.25rem; margin-top: 2rem; margin-bottom: 1rem;">10. Cookies i podobne technologie</h2>
+<ul style="list-style: disc; margin-left: 1.5rem; margin-bottom: 1.5rem;">
+  <li>Serwis może wykorzystywać pliki cookies oraz podobne technologie (Local Storage, Pixel).</li>
+  <li>Podział: niezbędne (essential) – wymagane do działania strony i bezpieczeństwa; używane bez zgody. Analityczne/marketingowe – używane wyłącznie po uzyskaniu zgody; służą pomiarowi ruchu, poprawie UX i ewentualnym kampaniom.</li>
+  <li>Użytkownik może zarządzać zgodami w banerze cookies oraz w <a href="cookie-settings.html" style="color: var(--accent); text-decoration: underline;">ustawieniach cookies</a>.</li>
+</ul>
+
+<h2 style="color: var(--text); font-size: 1.25rem; margin-top: 2rem; margin-bottom: 1rem;">11. Formularz kontaktowy</h2>
+<ul style="list-style: disc; margin-left: 1.5rem; margin-bottom: 1.5rem;">
+  <li>Wysyłając wiadomość, użytkownik potwierdza zapoznanie się z niniejszą Polityką.</li>
+</ul>
+
+<h2 style="color: var(--text); font-size: 1.25rem; margin-top: 2rem; margin-bottom: 1rem;">12. Dzieci</h2>
+<ul style="list-style: disc; margin-left: 1.5rem; margin-bottom: 1.5rem;">
+  <li>Serwis nie jest skierowany do osób poniżej 16 roku życia. Administrator nie zbiera świadomie danych takich osób.</li>
+</ul>
+
+<h2 style="color: var(--text); font-size: 1.25rem; margin-top: 2rem; margin-bottom: 1rem;">13. Zmiany Polityki</h2>
+<ul style="list-style: disc; margin-left: 1.5rem; margin-bottom: 1.5rem;">
+  <li>Polityka może być okresowo aktualizowana. Nowa wersja będzie publikowana na stronie z datą „Ostatnia aktualizacja”.</li>
+</ul>
+
+<h2 style="color: var(--text); font-size: 1.25rem; margin-top: 2rem; margin-bottom: 1rem;">14. Kontakt w sprawie danych</h2>
+<ul style="list-style: disc; margin-left: 1.5rem; margin-bottom: 1.5rem;">
+  <li>supertrewi@gmail.com</li>
+</ul>
+
+      </div>
     </div>
-  </footer>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <p class="footer-copy">
+      &copy; <span id="footer-year"></span> Patryk Bobrowski. Wszelkie prawa zastrzeżone.
+    </p>
+    <nav class="footer-links" aria-label="Linki prawne">
+      <a href="privacy.html">Prywatność</a>
+      <a href="terms.html">Regulamin</a>
+      <a href="cookies.html">Cookies</a>
+      <a href="cookie-settings.html">Ustawienia cookies</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var el = document.getElementById('footer-year');
+    if(el) el.textContent = new Date().getFullYear();
+  })();
+</script>
+
 </body>
 </html>
-

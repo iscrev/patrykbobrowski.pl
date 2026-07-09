@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ustawienia cookies · Patryk Bobrowski</title>
-  <link rel="stylesheet" href="styles.css?v=pages-2025-08-08" />
   <!-- Google Analytics (gtag.js) z Consent Mode v2 -->
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -28,85 +24,260 @@
     gtag('config', 'G-89YQWBDKB5', { anonymize_ip: true });
   </script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-89YQWBDKB5"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <title>Ustawienia Cookies — Patryk Bobrowski</title>
+  <meta name="theme-color" content="#050507">
+  
+  <link rel="icon" type="image/png" href="favi.png">
+  <link rel="apple-touch-icon" href="favi.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link rel="stylesheet" href="styles.css?v=11">
+  <script src="script.js?v=11" defer></script>
 </head>
-<body class="bg-vibrant-glass">
-  <div class="hub-gradient-layer" aria-hidden="true"></div>
-  <nav class="nav-glass">
-    <div class="nav-container">
-      <div class="logo-liquid">
-        <span class="logo-text">Patryk Bobrowski</span>
-        <div class="logo-glow"></div>
-      </div>
-      <ul class="nav-menu">
-        <li><a href="index.html#hero" class="nav-link">Start</a></li>
-        <li><a href="index.html#about" class="nav-link">O mnie</a></li>
+<body>
+
+<header>
+  <nav class="nav" aria-label="Nawigacja główna">
+    <div class="container nav-inner">
+
+      <a href="index.html#hero" class="nav-logo" aria-label="Patryk Bobrowski — strona główna">
+        Patryk Bobrowski<span style="color: var(--accent); font-weight: 700;">.</span>
+      </a>
+
+      <!-- Desktop links -->
+      <ul class="nav-links" role="list">
+        <li><a href="index.html#hero"    class="nav-link">Start</a></li>
+        <li><a href="index.html#about"   class="nav-link">O mnie</a></li>
         <li><a href="index.html#portfolio" class="nav-link">Portfolio</a></li>
-        <li><a href="index.html#contact" class="nav-link">Kontakt</a></li>
+        <li><a href="index.html#process"   class="nav-link">Proces</a></li>
+        <li><a href="index.html#contact"  class="nav-link">Kontakt</a></li>
       </ul>
+
+      <a href="index.html#contact" class="btn btn-primary nav-cta" style="font-size:0.85rem;padding:0.6em 1.2em;">
+        Napisz do mnie
+      </a>
+
+      <!-- Mobile hamburger -->
+      <button class="nav-toggle" aria-label="Otwórz menu" aria-expanded="false" aria-controls="nav-mobile">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
     </div>
   </nav>
 
-  <main class="content-wrapper" style="padding-top:100px;">
-    <section class="section-header container" style="max-width:900px; margin-top:24px;">
-      <h1 class="section-title">Ustawienia cookies</h1>
-    </section>
-    <section class="container" style="max-width:900px;">
-      <div class="glass-card" style="line-height:1.7; font-size:15px;">
-        <p class="apple-clean-text">Zarządzaj kategoriami cookies. Niezbędne są zawsze aktywne. Pozostałe uruchamiamy dopiero po zgodzie.</p>
-        <div style="display:flex; flex-direction:column; gap:10px; margin-top:10px;">
-          <label style="display:flex; align-items:center; gap:10px;">
-            <input type="checkbox" checked disabled /> Niezbędne (essential) – wymagane do działania serwisu
-          </label>
-          <label style="display:flex; align-items:center; gap:10px;">
-            <input type="checkbox" id="ck-analytics" /> Analityczne/statystyczne – pomiar użycia i ulepszanie
-          </label>
-          <label style="display:flex; align-items:center; gap:10px;">
-            <input type="checkbox" id="ck-marketing" /> Marketingowe – personalizacja treści/reklam
-          </label>
-        </div>
-        <div style="display:flex; gap:12px; margin-top:16px;">
-          <button id="ck-save" class="btn-primary">Zapisz wybór</button>
-          <button id="ck-accept-all" class="btn-secondary">Akceptuj wszystkie</button>
-          <button id="ck-reject-all" class="btn-secondary">Odrzuć wszystkie</button>
-        </div>
-        <p class="apple-clean-text" style="font-size:12px; opacity:.85; margin-top:12px;">Więcej informacji: <a href="privacy.html" class="nav-link" style="text-decoration:underline;">Polityka prywatności</a> · <a href="cookies.html" class="nav-link" style="text-decoration:underline;">Polityka cookies</a></p>
+  <!-- Mobile menu -->
+  <nav id="nav-mobile" class="nav-mobile" aria-label="Menu mobilne">
+    <ul role="list" style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:1.5rem;">
+      <li><a href="index.html#hero"     class="nav-link">Start</a></li>
+      <li><a href="index.html#about"    class="nav-link">O mnie</a></li>
+      <li><a href="index.html#portfolio"  class="nav-link">Portfolio</a></li>
+      <li><a href="index.html#process"    class="nav-link">Proces</a></li>
+      <li><a href="index.html#contact"   class="nav-link">Kontakt</a></li>
+    </ul>
+    <a href="index.html#contact" class="btn btn-primary" style="margin-top:1rem;">Napisz do mnie</a>
+  </nav>
+</header>
+
+<main>
+  <section style="padding: 180px 0 100px; min-height: 100vh;">
+    <div class="container" style="max-width: 900px;">
+      <div class="reveal" style="margin-bottom: var(--s-lg);">
+        <h1 class="section-title">Ustawienia cookies</h1>
       </div>
-    </section>
-  </main>
+      <div class="glass" style="padding: clamp(1.5rem, 4vw, 3rem); border-radius: var(--radius-lg); line-height: 1.8; color: var(--text-muted);">
+        
+<p style="margin-bottom: 2.5rem; font-size: 1.1rem;">
+  Zarządzaj kategoriami cookies. Niezbędne są zawsze aktywne. Pozostałe uruchamiamy dopiero po Twojej zgodzie.
+</p>
 
-  <footer class="footer">
-    <div class="container" style="display:flex; gap:16px; flex-wrap:wrap; justify-content:center; align-items:center;">
-      <span class="apple-clean-text" style="opacity:0.9;">© 2025 Patryk Bobrowski. Wszelkie prawa zastrzeżone</span>
-      <span>·</span>
-      <a href="terms.html" class="nav-link" style="text-decoration:underline;">Terms</a>
-      <span>·</span>
-      <a href="privacy.html" class="nav-link" style="text-decoration:underline;">Privacy</a>
-      <span>·</span>
-      <a href="cookie-settings.html" class="nav-link" style="text-decoration:underline;">Ustawienia cookies</a>
+<div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2.5rem;">
+  
+  <div class="glass" style="padding: 1.5rem; border-radius: var(--radius-md); display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.05);">
+    <div>
+      <h3 style="color: var(--text); font-size: 1.1rem; margin-bottom: 0.25rem;">Niezbędne (essential)</h3>
+      <p style="font-size: 0.9rem; margin: 0;">Wymagane do działania serwisu i bezpieczeństwa.</p>
     </div>
-  </footer>
+    <div>
+      <label class="toggle-switch">
+        <input type="checkbox" checked disabled>
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+  </div>
 
-  <script>
-    (function(){
-      const key = 'cookie-consent-v1';
-      const state = JSON.parse(localStorage.getItem(key) || '{}');
-      const a = document.getElementById('ck-analytics');
-      const m = document.getElementById('ck-marketing');
-      a.checked = !!state.analytics;
-      m.checked = !!state.marketing;
-      function save(s){ 
-        localStorage.setItem(key, JSON.stringify(s)); 
-        if (typeof gtag === 'function') {
-          gtag('consent', 'update', { 'analytics_storage': s.analytics ? 'granted' : 'denied' });
-        }
-        alert('Zapisano preferencje cookies'); 
+  <div class="glass" style="padding: 1.5rem; border-radius: var(--radius-md); display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.05);">
+    <div>
+      <h3 style="color: var(--text); font-size: 1.1rem; margin-bottom: 0.25rem;">Analityczne</h3>
+      <p style="font-size: 0.9rem; margin: 0;">Pomiar użycia, ulepszanie strony i statystyki.</p>
+    </div>
+    <div>
+      <label class="toggle-switch">
+        <input type="checkbox" id="ck-analytics">
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+  </div>
+
+  <div class="glass" style="padding: 1.5rem; border-radius: var(--radius-md); display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.05);">
+    <div>
+      <h3 style="color: var(--text); font-size: 1.1rem; margin-bottom: 0.25rem;">Marketingowe</h3>
+      <p style="font-size: 0.9rem; margin: 0;">Personalizacja treści i reklam.</p>
+    </div>
+    <div>
+      <label class="toggle-switch">
+        <input type="checkbox" id="ck-marketing">
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+  </div>
+
+</div>
+
+<div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem;">
+  <button id="ck-save" class="btn btn-primary" style="padding: 0.8rem 1.5rem; justify-content: center;">Zapisz wybór</button>
+  <button id="ck-accept-all" class="btn btn-ghost" style="padding: 0.8rem 1.5rem; justify-content: center; border: 1px solid rgba(255,255,255,0.1);">Akceptuj wszystkie</button>
+  <button id="ck-reject-all" class="btn btn-ghost" style="padding: 0.8rem 1.5rem; justify-content: center; border: 1px solid rgba(255,255,255,0.1);">Odrzuć wszystkie</button>
+</div>
+
+<p style="font-size: 0.85rem; opacity: 0.8;">
+  Więcej informacji: <a href="privacy.html" style="color: var(--text); text-decoration: underline;">Polityka prywatności</a> &middot; <a href="cookies.html" style="color: var(--text); text-decoration: underline;">Polityka cookies</a>
+</p>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <p class="footer-copy">
+      &copy; <span id="footer-year"></span> Patryk Bobrowski. Wszelkie prawa zastrzeżone.
+    </p>
+    <nav class="footer-links" aria-label="Linki prawne">
+      <a href="privacy.html">Prywatność</a>
+      <a href="terms.html">Regulamin</a>
+      <a href="cookies.html">Cookies</a>
+      <a href="cookie-settings.html">Ustawienia cookies</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var el = document.getElementById('footer-year');
+    if(el) el.textContent = new Date().getFullYear();
+  })();
+</script>
+
+<style>
+/* Custom Toggle Switch */
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 26px;
+}
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(255,255,255,0.1);
+  transition: .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+  border-radius: 26px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 2px;
+  bottom: 2px;
+  background-color: #888;
+  transition: .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.toggle-switch input:checked + .toggle-slider {
+  background-color: var(--accent, #3b82f6);
+  border-color: var(--accent, #3b82f6);
+}
+.toggle-switch input:checked + .toggle-slider:before {
+  transform: translateX(22px);
+  background-color: #fff;
+}
+.toggle-switch input:disabled + .toggle-slider {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+</style>
+<script>
+  (function(){
+    const key = 'cookie-consent-v1';
+    const state = JSON.parse(localStorage.getItem(key) || '{}');
+    const a = document.getElementById('ck-analytics');
+    const m = document.getElementById('ck-marketing');
+    if(a) a.checked = !!state.analytics;
+    if(m) m.checked = !!state.marketing;
+
+    function save(s){ 
+      localStorage.setItem(key, JSON.stringify(s)); 
+      if (typeof gtag === 'function') {
+        gtag('consent', 'update', { 
+          'analytics_storage': s.analytics ? 'granted' : 'denied',
+          'ad_storage': s.marketing ? 'granted' : 'denied',
+          'ad_user_data': s.marketing ? 'granted' : 'denied',
+          'ad_personalization': s.marketing ? 'granted' : 'denied'
+        });
       }
-      document.getElementById('ck-save').onclick = ()=> save({analytics:a.checked, marketing:m.checked, decision:'custom'});
-      document.getElementById('ck-accept-all').onclick = ()=> save({analytics:true, marketing:true, decision:'all'});
-      document.getElementById('ck-reject-all').onclick = ()=> save({analytics:false, marketing:false, decision:'none'});
-    })();
-  </script>
+      
+      const btn = document.getElementById('ck-save');
+      const originalText = btn.textContent;
+      btn.textContent = 'Zapisano!';
+      btn.style.backgroundColor = '#10b981';
+      btn.style.borderColor = '#10b981';
+      btn.style.color = '#fff';
+      
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.style.backgroundColor = '';
+        btn.style.borderColor = '';
+        btn.style.color = '';
+        window.location.href = 'index.html';
+      }, 800);
+    }
+
+    const saveBtn = document.getElementById('ck-save');
+    const acceptAllBtn = document.getElementById('ck-accept-all');
+    const rejectAllBtn = document.getElementById('ck-reject-all');
+
+    if(saveBtn) saveBtn.onclick = () => save({analytics: a.checked, marketing: m.checked, decision: 'custom'});
+    
+    if(acceptAllBtn) acceptAllBtn.onclick = () => {
+      if(a) a.checked = true;
+      if(m) m.checked = true;
+      save({analytics: true, marketing: true, decision: 'all'});
+    };
+    
+    if(rejectAllBtn) rejectAllBtn.onclick = () => {
+      if(a) a.checked = false;
+      if(m) m.checked = false;
+      save({analytics: false, marketing: false, decision: 'none'});
+    };
+  })();
+</script>
+
 </body>
 </html>
-
-

@@ -10,6 +10,116 @@
 const $ = (sel, ctx = document) => ctx.querySelector(sel);
 const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 
+const VideoPlaybackGuard = (() => {
+  const videos = new Set();
+  let activeVideo = null;
+  let observer = null;
+
+  const canUseObserver = 'IntersectionObserver' in window;
+
+  const isElementVisible = video => {
+    if (!video || !document.documentElement.contains(video)) return false;
+    const rect = video.getBoundingClientRect();
+    return rect.width > 0 &&
+      rect.height > 0 &&
+      rect.bottom > 0 &&
+      rect.right > 0 &&
+      rect.top < window.innerHeight &&
+      rect.left < window.innerWidth;
+  };
+
+  const pauseVideo = video => {
+    if (!video || typeof video.pause !== 'function') return;
+    if (!video.paused) video.pause();
+    if (activeVideo === video) activeVideo = null;
+  };
+
+  const pauseAllExcept = currentVideo => {
+    videos.forEach(video => {
+      if (video !== currentVideo) pauseVideo(video);
+    });
+  };
+
+  const handlePlay = video => {
+    if (!isElementVisible(video)) {
+      pauseVideo(video);
+      return;
+    }
+    pauseAllExcept(video);
+    activeVideo = video;
+  };
+
+  const register = video => {
+    if (!(video instanceof HTMLVideoElement) || videos.has(video)) return;
+    if (video.classList.contains('section-bg-video')) return; // Ignore background videos
+
+    videos.add(video);
+    video.addEventListener('play', () => handlePlay(video));
+    video.addEventListener('playing', () => handlePlay(video));
+    video.addEventListener('ended', () => {
+      if (activeVideo === video) activeVideo = null;
+    });
+
+    if (observer) observer.observe(video);
+    if (!video.paused) handlePlay(video);
+  };
+
+  const registerExisting = (root = document) => {
+    root.querySelectorAll?.('video').forEach(register);
+  };
+
+  const pauseHiddenVideos = () => {
+    videos.forEach(video => {
+      if (!isElementVisible(video)) pauseVideo(video);
+    });
+  };
+
+  const init = () => {
+    if (canUseObserver) {
+      observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting || entry.intersectionRatio < 0.2) {
+            pauseVideo(entry.target);
+          }
+        });
+      }, { threshold: [0, 0.2, 0.5, 0.8] });
+    }
+
+    registerExisting();
+
+    const mutationObserver = new MutationObserver(mutations => {
+      mutations.forEach(mutation => {
+        mutation.addedNodes.forEach(node => {
+          if (node.nodeType !== Node.ELEMENT_NODE) return;
+          if (node.matches?.('video')) register(node);
+          registerExisting(node);
+        });
+      });
+    });
+    mutationObserver.observe(document.body, { childList: true, subtree: true });
+
+    window.addEventListener('pagehide', () => pauseAllExcept(null));
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) pauseAllExcept(null);
+    });
+
+    if (!canUseObserver) {
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(() => {
+          pauseHiddenVideos();
+          ticking = false;
+        });
+      }, { passive: true });
+      window.addEventListener('resize', pauseHiddenVideos, { passive: true });
+    }
+  };
+
+  return { init, pauseAllExcept, register };
+})();
+
 /* ── Navigation ─────────────────────────────────────────────── */
 function initNav() {
   const nav    = $('.nav');
@@ -85,7 +195,7 @@ function initReveal() {
         observer.unobserve(entry.target);
       });
     },
-    { rootMargin: '0px 0px -50px 0px', threshold: 0.08 }
+    { rootMargin: '0px 0px -150px 0px', threshold: 0.15 }
   );
 
   // Apply stagger delay to sibling groups (grid children)
@@ -201,6 +311,8 @@ class PremiumShowcase {
   }
 
   renderCards() {
+    const shouldResume = this.isPlaying;
+    this.isRendering = true;
     this.pauseInactiveVideos();
     this.track.innerHTML = '';
 
@@ -239,9 +351,12 @@ class PremiumShowcase {
       `;
 
       const videoEl = card.querySelector('video');
+      VideoPlaybackGuard.register(videoEl);
       videoEl.addEventListener('loadedmetadata', () => {
         if (videoEl.currentTime === 0) videoEl.currentTime = 0.1;
       });
+      videoEl.addEventListener('play', () => this.syncActiveState(videoEl, true));
+      videoEl.addEventListener('pause', () => this.syncActiveState(videoEl, false));
 
       card.addEventListener('click', () => this.handleCardClick(index));
       card.addEventListener('keydown', event => {
@@ -254,8 +369,9 @@ class PremiumShowcase {
       this.track.appendChild(card);
     });
 
+    this.isRendering = false;
     this.updateUi();
-    if (this.isPlaying) this.playActiveVideo();
+    if (shouldResume) this.playActiveVideo();
   }
 
   renderDots() {
@@ -281,9 +397,12 @@ class PremiumShowcase {
       this.soundBtn.setAttribute('aria-pressed', String(!this.isMuted));
       this.soundBtn.setAttribute('aria-label', this.isMuted ? 'Włącz dźwięk' : 'Wycisz film');
       this.soundBtn.classList.toggle('is-unmuted', !this.isMuted);
-      const label = this.soundBtn.querySelector('span');
-      if (label) label.textContent = this.isMuted ? 'Muted' : 'Sound';
+      const label = this.soundBtn.querySelector('.showcase-sound-state');
+      if (label) label.textContent = this.isMuted ? 'Wyciszone' : 'Dźwięk';
     }
+
+    const activeVideo = this.getActiveVideo();
+    if (activeVideo) activeVideo.muted = this.isMuted;
 
     if (this.dotsEl) {
       this.dotsEl.querySelectorAll('.showcase-dot').forEach(dot => {
@@ -317,6 +436,7 @@ class PremiumShowcase {
     if (!activeCard || !activeVideo) return;
 
     this.pauseInactiveVideos();
+    VideoPlaybackGuard.pauseAllExcept(activeVideo);
     activeVideo.muted = this.isMuted;
 
     try {
@@ -340,6 +460,17 @@ class PremiumShowcase {
     activeCard.classList.remove('is-playing');
     activeCard.classList.add('is-paused');
     this.isPlaying = false;
+  }
+
+  syncActiveState(video, isPlaying) {
+    if (this.isRendering) return;
+    const activeCard = this.getActiveCard();
+    const activeVideo = this.getActiveVideo();
+    if (!activeCard || !activeVideo || video !== activeVideo) return;
+
+    activeCard.classList.toggle('is-playing', isPlaying);
+    activeCard.classList.toggle('is-paused', !isPlaying);
+    this.isPlaying = isPlaying;
   }
 
   togglePlay() {
@@ -487,113 +618,129 @@ function initContactForm() {
 
 /* ── Process Animation ───────────────────────────────────────── */
 function initProcessAnimation() {
-  const processModule = document.getElementById('process-module');
-  if (!processModule) return;
+  const section = document.querySelector('.process-section');
+  if (!section) return;
 
-  const processSection = document.getElementById('proces');
-  const heading = processSection?.querySelector('.process-heading');
-  const fill = document.getElementById('process-fill');
-  const steps = [...document.querySelectorAll('.process-step-premium')];
-  const status = processModule.querySelector('.process-status');
-  
-  if (!fill || steps.length === 0) return;
+  const fill    = document.getElementById('proc-fill');
+  const badge   = document.getElementById('proc-badge');
+  const status  = document.getElementById('proc-status');
+  const clock   = document.getElementById('proc-clock-hand');
+  const nodes   = [...section.querySelectorAll('.proc-node')];
+  const cards   = [...section.querySelectorAll('.proc-card')];
 
-  let hasAnimated = false;
-  let loopInterval = null;
-  let loopTimeout = null;
-  const getIsDesktop = () => window.innerWidth >= 1024;
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // We require GSAP
+  if (!fill || cards.length === 0 || typeof gsap === 'undefined') return;
 
-  const setProgress = (index) => {
-    const progress = steps.length > 1 ? index / (steps.length - 1) : 1;
-    fill.style.transform = getIsDesktop() ? `scaleX(${progress})` : `scaleY(${progress})`;
-    if (status) status.textContent = `${String(index + 1).padStart(2, '0')} / 04`;
+  let fired = false;
+
+  const setStatus = (n) => {
+    if (status) status.textContent = `${String(n).padStart(2,'0')} / 04`;
   };
 
-  const setActiveStep = (index, complete = index === steps.length - 1) => {
-    steps.forEach((step, stepIndex) => {
-      step.classList.toggle('is-active', stepIndex === index);
-      step.classList.toggle('is-complete-step', stepIndex < index);
-      step.setAttribute('aria-current', stepIndex === index ? 'step' : 'false');
+  const run = () => {
+    if (fired) return;
+    fired = true;
+
+    // We do NOT use section.classList.add anymore because we strictly use GSAP
+
+    const tl = gsap.timeline({
+      defaults: { ease: "cubic-bezier(0.22, 1, 0.36, 1)" }
     });
-    setProgress(index);
-    processModule.classList.toggle('is-complete', complete);
+
+    // ================== TIME 0.0s ==================
+    tl.add(() => {
+      nodes[0].classList.add('is-active-style');
+      cards[0].classList.add('is-active-style');
+      gsap.set(cards[0], { pointerEvents: "auto" });
+      setStatus(1);
+    }, 0);
+    tl.to(nodes[0], { opacity: 1, scale: 1.15, duration: 0.4 }, 0);
+    tl.to(cards[0], { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6 }, 0);
+
+    // ================== TIME 0.8s - 1.8s ==================
+    tl.to(fill, { width: "33.333%", duration: 1.0 }, 0.8);
+
+    // ================== TIME 1.8s ==================
+    tl.add(() => {
+      nodes[0].classList.replace('is-active-style', 'is-done-style');
+      cards[0].classList.remove('is-active-style');
+      nodes[1].classList.add('is-active-style');
+      cards[1].classList.add('is-active-style');
+      gsap.set(cards[1], { pointerEvents: "auto" });
+      setStatus(2);
+    }, 1.8);
+    tl.to(nodes[0], { scale: 1, duration: 0.4 }, 1.8);
+    tl.to(nodes[1], { opacity: 1, scale: 1.15, duration: 0.4 }, 1.8);
+    tl.to(cards[1], { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6 }, 1.8);
+
+    // ================== TIME 2.0s - 3.0s ==================
+    tl.to(fill, { width: "66.666%", duration: 1.0 }, 2.0);
+
+    // ================== TIME 3.0s ==================
+    tl.add(() => {
+      nodes[1].classList.replace('is-active-style', 'is-done-style');
+      cards[1].classList.remove('is-active-style');
+      nodes[2].classList.add('is-active-style');
+      cards[2].classList.add('is-active-style');
+      gsap.set(cards[2], { pointerEvents: "auto" });
+      setStatus(3);
+    }, 3.0);
+    tl.to(nodes[1], { scale: 1, duration: 0.4 }, 3.0);
+    tl.to(nodes[2], { opacity: 1, scale: 1.15, duration: 0.4 }, 3.0);
+    tl.to(cards[2], { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6 }, 3.0);
+
+    // ================== TIME 3.2s - 4.2s ==================
+    tl.to(fill, { width: "100%", duration: 1.0 }, 3.2);
+
+    // ================== TIME 4.2s ==================
+    tl.add(() => {
+      nodes[2].classList.replace('is-active-style', 'is-done-style');
+      cards[2].classList.remove('is-active-style');
+      nodes[3].classList.add('is-active-style');
+      cards[3].classList.add('is-active-style');
+      gsap.set(cards[3], { pointerEvents: "auto" });
+      setStatus(4);
+    }, 4.2);
+    tl.to(nodes[2], { scale: 1, duration: 0.4 }, 4.2);
+    tl.to(nodes[3], { opacity: 1, scale: 1.15, duration: 0.4 }, 4.2);
+    tl.to(cards[3], { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6 }, 4.2);
+
+    // ================== TIME 5.0s ==================
+    tl.add(() => {
+      nodes[3].classList.replace('is-active-style', 'is-done-style');
+      cards[3].classList.remove('is-active-style');
+      badge.classList.add('is-active-shadow'); 
+    }, 5.0);
+    tl.to(nodes[3], { scale: 1, duration: 0.4 }, 5.0);
+    tl.to(badge, { opacity: 1, scale: 1, duration: 0.6 }, 5.0);
+    tl.to(clock, { rotation: 360 * 2, duration: 1.8, svgOrigin: "12 12", ease: "power2.inOut" }, 5.0);
+    // Animate badge text 0 -> 48
+    const badgeText = document.getElementById('proc-badge-text');
+    let badgeObj = { val: 0 };
+    tl.to(badgeObj, {
+      val: 48,
+      roundProps: "val",
+      duration: 1.6,
+      ease: "power1.out",
+      onUpdate: () => {
+        if (badgeText) badgeText.textContent = badgeObj.val + "h";
+      }
+    }, 5.0);
   };
 
-  const clearProcessLoop = () => {
-    if (loopInterval) {
-      clearInterval(loopInterval);
-      loopInterval = null;
-    }
-    if (loopTimeout) {
-      clearTimeout(loopTimeout);
-      loopTimeout = null;
-    }
-  };
+  // We explicitly run gsap.set initially to hide them *immediately*
+  // This is outside `run()` so it applies on script load before scrolling
+  gsap.set(cards, { opacity: 0, y: 28, filter: "blur(10px)", pointerEvents: "none" });
+  gsap.set(nodes, { opacity: 0, scale: 0.4, xPercent: -50, yPercent: -50 });
+  gsap.set(badge, { opacity: 0, scale: 0.7 });
+  gsap.set(fill, { width: "0%" });
 
-  const runProcessLoop = () => {
-    clearProcessLoop();
-    let index = 0;
-    setActiveStep(index, false);
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { run(); io.disconnect(); } });
+  }, { threshold: 0.35, rootMargin: "0px 0px -150px 0px" });
 
-    loopInterval = setInterval(() => {
-      index += 1;
-      setActiveStep(index, index === steps.length - 1);
+  io.observe(section);
 
-      if (index === steps.length - 1) {
-        clearInterval(loopInterval);
-        loopInterval = null;
-        loopTimeout = setTimeout(runProcessLoop, 3200);
-      }
-    }, 1450);
-  };
-
-  steps.forEach(step => {
-    step.setAttribute('tabindex', '0');
-    step.setAttribute('role', 'button');
-  });
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting && !hasAnimated) {
-        hasAnimated = true;
-        heading?.classList.add('is-visible');
-        processModule.classList.add('is-sequencing');
-        
-        if (prefersReducedMotion) {
-          setActiveStep(steps.length - 1, true);
-          return;
-        }
-
-        loopTimeout = setTimeout(runProcessLoop, 420);
-      }
-    });
-  }, { threshold: 0.3 });
-
-  observer.observe(processModule);
-  
-  steps.forEach((step, index) => {
-    step.addEventListener('click', () => {
-      hasAnimated = true;
-      clearProcessLoop();
-      setActiveStep(index, index === steps.length - 1);
-      if (!prefersReducedMotion) {
-        loopTimeout = setTimeout(runProcessLoop, 4200);
-      }
-    });
-
-    step.addEventListener('keydown', event => {
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault();
-        hasAnimated = true;
-        clearProcessLoop();
-        setActiveStep(index, index === steps.length - 1);
-        if (!prefersReducedMotion) {
-          loopTimeout = setTimeout(runProcessLoop, 4200);
-        }
-      }
-    });
-  });
 }
 
 /* ── Cookie banner ──────────────────────────────────────────── */
@@ -645,6 +792,7 @@ function initCookies() {
 
 /* ── Init ────────────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
+  VideoPlaybackGuard.init();
   initNav();
   initSmoothScroll();
   new PremiumShowcase(); // Initializes the 3D portfolio carousel
