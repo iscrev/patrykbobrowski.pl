@@ -121,7 +121,7 @@
 
 <!-- ══ HERO ════════════════════════════════════════════════════ -->
 <main>
-<section id="hero" class="hero">
+<section id="start" class="hero">
   <!-- Premium Background Media -->
   <div class="hero-bg-media" aria-hidden="true">
 
@@ -167,9 +167,14 @@
           loop
           muted
           playsinline
-          controls
           preload="metadata"
         ></video>
+        <button id="hero-play-btn" class="hero-play-btn" aria-label="Odtwórz wideo">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="24" fill="rgba(20,20,20,0.6)" />
+            <path d="M31 24L19 31V17L31 24Z" fill="#F5F0F2"/>
+          </svg>
+        </button>
       </div>
     </div>
 
