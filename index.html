@@ -14,9 +14,13 @@
     });
 
     try {
-      var state = JSON.parse(localStorage.getItem('cookie-consent-v1') || '{}');
-      if (state.analytics) {
-        gtag('consent', 'update', { 'analytics_storage': 'granted' });
+      if (localStorage.getItem('cookieConsent') === 'accepted') {
+        gtag('consent', 'update', {
+          'analytics_storage': 'granted',
+          'ad_storage': 'granted',
+          'ad_user_data': 'granted',
+          'ad_personalization': 'granted'
+        });
       }
     } catch(e) {}
 
@@ -301,27 +305,28 @@
       <div class="showcase-stage">
       
       <!-- Track holding all video cards -->
-      <div class="showcase-track" id="showcase-track">
+      <div class="showcase-track reveal-scale" id="showcase-track" style="--reveal-delay: 120ms;">
         <!-- Injected by JS -->
       </div>
       </div>
 
       <!-- Controls -->
-      <div class="showcase-controls reveal-up" style="--reveal-delay: 200ms;">
+      <div class="showcase-controls reveal-up" style="--reveal-delay: 900ms;">
         <button class="showcase-btn" id="showcase-prev" aria-label="Poprzedni film">
           <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
         </button>
-        <div class="showcase-counter" id="showcase-counter">01 / 18</div>
+        <div class="showcase-counter" id="showcase-counter" aria-label="Aktualny film">01</div>
         <button class="showcase-btn showcase-sound" id="showcase-sound" aria-label="Włącz dźwięk" aria-pressed="false">
           <svg class="sound-icon sound-muted" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M18 9l3 3m0-3l-3 3"/></svg>
           <svg class="sound-icon sound-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17 9a4 4 0 010 6m2.5-8.5a7 7 0 010 11"/></svg>
           <span aria-hidden="true">Muted</span>
         </button>
+        <div class="showcase-total" id="showcase-total" aria-label="Liczba filmów">18</div>
         <button class="showcase-btn" id="showcase-next" aria-label="Następny film">
           <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
         </button>
       </div>
-      <div class="showcase-dots" id="showcase-dots" aria-label="Wybór filmu"></div>
+      <div class="showcase-dots reveal-up" id="showcase-dots" aria-label="Wybór filmu" style="--reveal-delay: 1500ms;"></div>
     </div>
   </div>
 </section>
@@ -411,7 +416,7 @@
 
     <div class="reveal" style="margin-bottom:var(--s-xl);">
       <p class="section-label" aria-hidden="true">Kontakt</p>
-      <h2 class="section-title">Zróbmy coś dobrego.</h2>
+      <h2 class="section-title contact-title">Zróbmy coś dobrego<span class="contact-title-dot">.</span></h2>
       <p class="section-sub">
         Szukasz kogoś do montażu albo potrzebujesz świeżych kreacji graficznych?
         Napisz i opowiedz mi o swoim projekcie.
@@ -561,7 +566,9 @@
     Szczegóły w <a href="cookies.html">polityce cookies</a>.
   </p>
   <div class="cookie-actions">
-    <button class="cookie-btn-accept" id="cookie-accept">Akceptuj</button>
+    <button class="cookie-btn-accept" id="cookie-accept" data-cookie-consent="accepted">Akceptuj</button>
+    <button class="cookie-btn-secondary" id="cookie-necessary" data-cookie-consent="necessary">Tylko niezbędne</button>
+    <button class="cookie-btn-secondary" id="cookie-reject" data-cookie-consent="rejected">Odrzuć wszystkie</button>
     <a class="cookie-btn-settings" id="cookie-settings-link" href="cookie-settings.html">Ustawienia</a>
   </div>
 </div>

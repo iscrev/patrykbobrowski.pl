@@ -14,9 +14,13 @@
     });
 
     try {
-      var state = JSON.parse(localStorage.getItem('cookie-consent-v1') || '{}');
-      if (state.analytics) {
-        gtag('consent', 'update', { 'analytics_storage': 'granted' });
+      if (localStorage.getItem('cookieConsent') === 'accepted') {
+        gtag('consent', 'update', {
+          'analytics_storage': 'granted',
+          'ad_storage': 'granted',
+          'ad_user_data': 'granted',
+          'ad_personalization': 'granted'
+        });
       }
     } catch(e) {}
 
@@ -225,56 +229,68 @@
 </style>
 <script>
   (function(){
-    const key = 'cookie-consent-v1';
-    const state = JSON.parse(localStorage.getItem(key) || '{}');
+    const key = 'cookieConsent';
+    const state = localStorage.getItem(key);
     const a = document.getElementById('ck-analytics');
     const m = document.getElementById('ck-marketing');
-    if(a) a.checked = !!state.analytics;
-    if(m) m.checked = !!state.marketing;
+    if(a) a.checked = state === 'accepted';
+    if(m) m.checked = state === 'accepted';
 
-    function save(s){ 
-      localStorage.setItem(key, JSON.stringify(s)); 
+    function updateConsentMode(analytics, marketing) {
       if (typeof gtag === 'function') {
         gtag('consent', 'update', { 
-          'analytics_storage': s.analytics ? 'granted' : 'denied',
-          'ad_storage': s.marketing ? 'granted' : 'denied',
-          'ad_user_data': s.marketing ? 'granted' : 'denied',
-          'ad_personalization': s.marketing ? 'granted' : 'denied'
+          'analytics_storage': analytics ? 'granted' : 'denied',
+          'ad_storage': marketing ? 'granted' : 'denied',
+          'ad_user_data': marketing ? 'granted' : 'denied',
+          'ad_personalization': marketing ? 'granted' : 'denied'
         });
       }
-      
+    }
+
+    function save(value, analytics, marketing){
+      localStorage.setItem(key, value);
+      updateConsentMode(analytics, marketing);
+
+      const banner = document.getElementById('cookie-banner');
+      if (banner) {
+        banner.classList.remove('visible');
+        banner.setAttribute('aria-hidden', 'true');
+      }
+
       const btn = document.getElementById('ck-save');
-      const originalText = btn.textContent;
-      btn.textContent = 'Zapisano!';
-      btn.style.backgroundColor = '#10b981';
-      btn.style.borderColor = '#10b981';
-      btn.style.color = '#fff';
-      
-      setTimeout(() => {
-        btn.textContent = originalText;
-        btn.style.backgroundColor = '';
-        btn.style.borderColor = '';
-        btn.style.color = '';
-        window.location.href = 'index.html';
-      }, 800);
+      if (btn) {
+        const originalText = btn.textContent;
+        btn.textContent = 'Zapisano!';
+        btn.style.backgroundColor = '#10b981';
+        btn.style.borderColor = '#10b981';
+        btn.style.color = '#fff';
+
+        setTimeout(() => {
+          btn.textContent = originalText;
+          btn.style.backgroundColor = '';
+          btn.style.borderColor = '';
+          btn.style.color = '';
+          window.location.href = 'index.html';
+        }, 800);
+      }
     }
 
     const saveBtn = document.getElementById('ck-save');
     const acceptAllBtn = document.getElementById('ck-accept-all');
     const rejectAllBtn = document.getElementById('ck-reject-all');
 
-    if(saveBtn) saveBtn.onclick = () => save({analytics: a.checked, marketing: m.checked, decision: 'custom'});
+    if(saveBtn) saveBtn.onclick = () => save('custom', !!a?.checked, !!m?.checked);
     
     if(acceptAllBtn) acceptAllBtn.onclick = () => {
       if(a) a.checked = true;
       if(m) m.checked = true;
-      save({analytics: true, marketing: true, decision: 'all'});
+      save('accepted', true, true);
     };
     
     if(rejectAllBtn) rejectAllBtn.onclick = () => {
       if(a) a.checked = false;
       if(m) m.checked = false;
-      save({analytics: false, marketing: false, decision: 'none'});
+      save('rejected', false, false);
     };
   })();
 </script>

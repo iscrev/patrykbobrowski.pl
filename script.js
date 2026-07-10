@@ -192,6 +192,10 @@ function initReveal() {
       entries.forEach(entry => {
         if (!entry.isIntersecting) return;
         entry.target.classList.add('is-visible');
+        if (entry.target.id === 'showcase-track') {
+          $('.showcase-controls')?.classList.add('is-visible');
+          $('#showcase-dots')?.classList.add('is-visible');
+        }
         observer.unobserve(entry.target);
       });
     },
@@ -207,7 +211,14 @@ function initReveal() {
     });
   });
 
-  $$('.reveal, .reveal-up, .reveal-scale, .reveal-blur').forEach(el => observer.observe(el));
+  revealElements.forEach(el => {
+    if (el.closest('.hero')) {
+      el.classList.add('is-visible');
+      return;
+    }
+
+    observer.observe(el);
+  });
 }
 /* ── About Background Scroll Effect ───────────────────────────── */
 function initAboutScrollEffect() {
@@ -281,6 +292,7 @@ class PremiumShowcase {
     this.isPlaying = false;
     this.isMuted = true;
     this.counterEl = document.getElementById('showcase-counter');
+    this.totalEl = document.getElementById('showcase-total');
     this.soundBtn = document.getElementById('showcase-sound');
     this.dotsEl = document.getElementById('showcase-dots');
     this.bgVideo = document.getElementById('showcase-bg-video');
@@ -390,7 +402,11 @@ class PremiumShowcase {
 
   updateUi() {
     if (this.counterEl) {
-      this.counterEl.textContent = `${String(this.currentIndex + 1).padStart(2, '0')} / ${this.total}`;
+      this.counterEl.textContent = String(this.currentIndex + 1).padStart(2, '0');
+    }
+
+    if (this.totalEl) {
+      this.totalEl.textContent = String(this.total).padStart(2, '0');
     }
 
     if (this.soundBtn) {
@@ -745,49 +761,91 @@ function initProcessAnimation() {
 
 /* ── Cookie banner ──────────────────────────────────────────── */
 function initCookies() {
-  const banner  = $('#cookie-banner');
-  if (!banner) return;
+  const key = 'cookieConsent';
+  const validValues = new Set(['accepted', 'necessary', 'rejected', 'custom']);
 
-  const stored = (() => {
-    try { return JSON.parse(localStorage.getItem('cookie-consent-v1') || '{}'); }
-    catch { return {}; }
-  })();
+  const readConsent = () => {
+    try {
+      const value = localStorage.getItem(key);
+      return validValues.has(value) ? value : null;
+    } catch {
+      return null;
+    }
+  };
 
-  // If consent already given, skip
-  if (stored.necessary) return;
+  const updateConsentMode = value => {
+    if (typeof gtag !== 'function') return;
 
-  // Show after short delay (don't block CTA)
-  setTimeout(() => banner.classList.add('visible'), 1200);
-
-  const accept = $('#cookie-accept');
-  const settings = $('#cookie-settings-link');
-
-  if (accept) {
-    accept.addEventListener('click', () => {
-      const consent = {
-        necessary: true,
-        analytics: true,
-        marketing: false,
-        ts: Date.now()
-      };
-      try { localStorage.setItem('cookie-consent-v1', JSON.stringify(consent)); }
-      catch {}
-      banner.classList.remove('visible');
-
-      // Signal GA if available
-      if (typeof gtag === 'function') {
-        gtag('consent', 'update', {
-          analytics_storage: 'granted'
-        });
-      }
+    const granted = value === 'accepted';
+    gtag('consent', 'update', {
+      analytics_storage: granted ? 'granted' : 'denied',
+      ad_storage: granted ? 'granted' : 'denied',
+      ad_user_data: granted ? 'granted' : 'denied',
+      ad_personalization: granted ? 'granted' : 'denied'
     });
+  };
+
+  const createBanner = () => {
+    const banner = document.createElement('div');
+    banner.className = 'cookie-banner';
+    banner.id = 'cookie-banner';
+    banner.setAttribute('role', 'region');
+    banner.setAttribute('aria-label', 'Zgoda na cookies');
+    banner.innerHTML = `
+      <p>
+        Ta strona używa plików cookies do analizy ruchu.
+        Szczegóły w <a href="cookies.html">polityce cookies</a>.
+      </p>
+      <div class="cookie-actions">
+        <button class="cookie-btn-accept" id="cookie-accept" data-cookie-consent="accepted">Akceptuj</button>
+        <button class="cookie-btn-secondary" id="cookie-necessary" data-cookie-consent="necessary">Tylko niezbędne</button>
+        <button class="cookie-btn-secondary" id="cookie-reject" data-cookie-consent="rejected">Odrzuć wszystkie</button>
+        <a class="cookie-btn-settings" id="cookie-settings-link" href="cookie-settings.html">Ustawienia</a>
+      </div>
+    `;
+    document.body.appendChild(banner);
+    return banner;
+  };
+
+  const hideBanner = banner => {
+    banner.classList.remove('visible');
+    banner.setAttribute('aria-hidden', 'true');
+  };
+
+  const saveConsent = (value, banner) => {
+    if (!validValues.has(value)) return;
+    try { localStorage.setItem(key, value); }
+    catch {}
+    updateConsentMode(value);
+    hideBanner(banner);
+  };
+
+  const stored = readConsent();
+  if (stored) {
+    updateConsentMode(stored);
+    const existingBanner = $('#cookie-banner');
+    if (existingBanner) hideBanner(existingBanner);
+    return;
   }
 
-  if (settings) {
-    settings.addEventListener('click', () => {
-      banner.classList.remove('visible');
-    });
-  }
+  const banner = $('#cookie-banner') || createBanner();
+  banner.setAttribute('aria-hidden', 'false');
+
+  banner.addEventListener('click', event => {
+    const consentButton = event.target.closest('[data-cookie-consent]');
+    if (consentButton) {
+      saveConsent(consentButton.dataset.cookieConsent, banner);
+      return;
+    }
+
+    if (event.target.closest('#cookie-settings-link')) {
+      hideBanner(banner);
+    }
+  });
+
+  setTimeout(() => {
+    if (!readConsent()) banner.classList.add('visible');
+  }, 500);
 }
 
 /* ── Init ────────────────────────────────────────────────────── */
