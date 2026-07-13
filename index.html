@@ -50,10 +50,22 @@
   <link rel="apple-touch-icon" href="favi.png">
   <link rel="manifest" href="manifest.json">
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&display=swap" rel="stylesheet">
+  <!-- Preloads for Fonts & LCP Poster -->
+  <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/source-serif-4-italic-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/optimized/posters/main-1280.webp" as="image" type="image/webp" media="(min-width: 769px)" fetchpriority="high">
+  <link rel="preload" href="assets/optimized/posters/main-960.webp" as="image" type="image/webp" media="(max-width: 768px)" fetchpriority="high">
+
+  <!-- Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+          .catch(err => console.error('Service Worker registration failed:', err));
+      });
+    }
+  </script>
 
   <!-- Consent Mode v2 — default deny before loading GA -->
   <script>
@@ -69,11 +81,11 @@
   </script>
 
   <!-- Styles -->
-  <link rel="stylesheet" href="styles.css?v=38">
+  <link rel="stylesheet" href="styles.min.css?v=38">
 
   <!-- Deferred script -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
-  <script src="script.js?v=38" defer></script>
+  <script src="script.min.js?v=38" defer></script>
 </head>
 <body>
 
@@ -83,7 +95,7 @@
     <div class="container nav-inner">
 
       <a href="#start" class="nav-logo" aria-label="Patryk Bobrowski — strona główna">
-        <img src="assets/logo/logo.png" alt="" style="height: 24px; width: auto; object-fit: contain;">
+        <img src="assets/optimized/logo/logo-48.png" alt="" width="24" height="24" style="height: 24px; width: 24px; object-fit: contain;">
         <span>Patryk Bobrowski<span class="nav-logo-dot"></span></span>
       </a>
 
@@ -165,13 +177,13 @@
     <div class="hero-card reveal-up" style="--reveal-delay: 250ms;" aria-label="Showreel">
       <div class="hero-card-inner">
         <video
-          src="videos/MAIN.mp4"
+          id="hero-video"
           class="hero-poster"
-          autoplay
           loop
           muted
           playsinline
-          preload="metadata"
+          preload="none"
+          poster="assets/optimized/posters/main-960.webp"
         ></video>
         <button id="hero-play-btn" class="hero-play-btn" aria-label="Odtwórz wideo">
           <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
@@ -192,7 +204,7 @@
       <video
         id="showreel-video"
         src="videos/MAIN.mp4"
-      preload="metadata"
+      preload="none"
       controls
       playsinline
       style="aspect-ratio:16/9;width:100%;"
@@ -205,15 +217,14 @@
   <div class="section-bg-media" aria-hidden="true">
     <video
       class="section-bg-video"
-      autoplay
       muted
       loop
       playsinline
-      preload="auto"
-      poster="assets/background/hero-bg-fallback.png"
-    >
-      <source src="assets/background/hero-bg-loop.mp4" type="video/mp4">
-    </video>
+      preload="none"
+      poster="assets/optimized/background/hero-bg-fallback-mobile.webp"
+      data-src-mobile="assets/optimized/background/hero-bg-loop-mobile.mp4"
+      data-src-desktop="assets/optimized/background/hero-bg-loop-desktop.mp4"
+    ></video>
     <div class="section-bg-overlay"></div>
   </div>
   <div class="container">
@@ -224,14 +235,18 @@
       <div class="about-photo-wrap reveal-scale">
         <div class="avatar-glow"></div>
         <div class="avatar-frame">
-          <img
-            src="sigmasior.jpg"
-            alt="Patryk Bobrowski"
-            class="about-avatar"
-            loading="lazy"
-            width="400"
-            height="400"
-          >
+          <picture>
+            <source srcset="assets/optimized/about/sigmasior-400.avif" type="image/avif">
+            <source srcset="assets/optimized/about/sigmasior-400.webp" type="image/webp">
+            <img
+              src="assets/optimized/about/sigmasior-400.webp"
+              alt="Patryk Bobrowski"
+              class="about-avatar"
+              loading="lazy"
+              width="400"
+              height="400"
+            >
+          </picture>
         </div>
       </div>
 
@@ -252,7 +267,7 @@
           
           <div class="skill-card premium-card reveal-up" style="--reveal-delay: 100ms;">
             <div class="skill-icon-wrap" aria-hidden="true">
-              <img class="skill-icon" src="assets/icons/video-edition.png" alt="Montaż video icon" width="64" height="64" loading="lazy">
+              <img class="skill-icon" src="assets/optimized/icons/video-edition-126.webp" alt="Montaż video icon" width="63" height="63" loading="lazy">
             </div>
             <h3 class="skill-name">Montaż video</h3>
             <div class="skill-desc">
@@ -262,7 +277,7 @@
 
           <div class="skill-card premium-card reveal-up" style="--reveal-delay: 200ms;">
             <div class="skill-icon-wrap" aria-hidden="true">
-              <img class="skill-icon" src="assets/icons/graphic-design.png" alt="Grafika icon" width="64" height="64" loading="lazy">
+              <img class="skill-icon" src="assets/optimized/icons/graphic-design-126.webp" alt="Grafika icon" width="63" height="63" loading="lazy">
             </div>
             <h3 class="skill-name">Grafika</h3>
             <div class="skill-desc">
@@ -272,7 +287,7 @@
 
           <div class="skill-card premium-card reveal-up" style="--reveal-delay: 300ms;">
             <div class="skill-icon-wrap" aria-hidden="true">
-              <img class="skill-icon" src="assets/icons/ai-workflow.png" alt="AI workflow icon" width="64" height="64" loading="lazy">
+              <img class="skill-icon" src="assets/optimized/icons/ai-workflow-126.webp" alt="AI workflow icon" width="63" height="63" loading="lazy">
             </div>
             <h3 class="skill-name">AI workflow</h3>
             <div class="skill-desc">
@@ -433,13 +448,13 @@
           Formularz też działa — odpisuję w ciągu 24 godzin.
         </p>
 
-        <a href="mailto:1moreiscrev@gmail.com" class="contact-item" style="text-decoration:none;">
+        <a href="mailto:kontakt@patrykbobrowski.pl" class="contact-item" style="text-decoration:none;">
           <span class="contact-item-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
           </span>
           <div>
             <div class="contact-item-label">E-mail</div>
-            <div class="contact-item-value">1moreiscrev@gmail.com</div>
+            <div class="contact-item-value">kontakt@patrykbobrowski.pl</div>
           </div>
         </a>
 
