@@ -286,7 +286,12 @@ class PremiumShowcase {
     this.track = document.getElementById('showcase-track');
     if (!this.track) return;
 
-    this.portfolioVideos = Array.from({ length: 18 }, (_, index) => `${index + 1}.mp4`);
+    this.portfolioVideos = [
+      'sigma.mp4',
+      '1.mp4', '2.mp4', '3.mp4', '4.mp4', '5.mp4', '6.mp4', '7.mp4', '8.mp4', '9.mp4', '10.mp4',
+      '11.mp4', '12.mp4', '13.mp4', '14.mp4', '15.mp4', '16.mp4', '17.mp4', '18.mp4',
+      'Ff.mp4'
+    ];
     this.videos = this.portfolioVideos;
     this.currentIndex = 0;
     this.isPlaying = false;
@@ -296,6 +301,7 @@ class PremiumShowcase {
     this.soundBtn = document.getElementById('showcase-sound');
     this.dotsEl = document.getElementById('showcase-dots');
     this.bgVideo = document.getElementById('showcase-bg-video');
+    this.showcase = document.getElementById('portfolio-showcase');
     
     this.init();
   }
@@ -322,6 +328,10 @@ class PremiumShowcase {
     return (index + 1) % this.total;
   }
 
+  getIndex(offset) {
+    return ((this.currentIndex + offset) % this.total + this.total) % this.total;
+  }
+
   renderCards() {
     const shouldResume = this.isPlaying;
     this.isRendering = true;
@@ -329,15 +339,18 @@ class PremiumShowcase {
     this.track.innerHTML = '';
 
     const visibleCards = [
-      { index: this.getPrevIndex(), pos: '-1', label: 'Poprzedni film' },
+      { index: this.getIndex(-2), pos: '-2', label: 'Film dalej' },
+      { index: this.getIndex(-1), pos: '-1', label: 'Poprzedni film' },
       { index: this.currentIndex, pos: '0', label: 'Aktywny film' },
-      { index: this.getNextIndex(), pos: '1', label: 'Następny film' }
+      { index: this.getIndex(1), pos: '1', label: 'Następny film' },
+      { index: this.getIndex(2), pos: '2', label: 'Film dalej' }
     ];
 
     visibleCards.forEach(({ index, pos, label }) => {
       const vid = this.portfolioVideos[index];
       const card = document.createElement('div');
-      card.className = `showcase-card ${pos === '0' ? 'is-paused' : ''}`;
+      const isLandscape = vid === 'sigma.mp4';
+      card.className = `showcase-card ${pos === '0' ? 'is-paused' : ''} ${isLandscape ? 'is-landscape' : ''}`;
       card.dataset.index = index;
       card.dataset.pos = pos;
       card.setAttribute('role', 'button');
@@ -382,6 +395,11 @@ class PremiumShowcase {
     });
 
     this.isRendering = false;
+    // Toggle landscape-center mode for adaptive side card sizing
+    const centerVid = this.portfolioVideos[this.currentIndex];
+    const isLandscapeCenter = centerVid === 'sigma.mp4';
+    this.track.classList.toggle('has-landscape-center', isLandscapeCenter);
+    if (this.showcase) this.showcase.classList.toggle('has-landscape-center', isLandscapeCenter);
     this.updateUi();
     if (shouldResume) this.playActiveVideo();
   }
